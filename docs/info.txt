@@ -1,0 +1,30 @@
+User
+    type : { anonymous, tenant, host, admin }
+    username
+    email
+    phone_number
+    first_name
+    last_name
+    password
+    profile_picture
+
+HostRequest
+    username
+    date+time
+
+API
+  SignUp
+    usernameExists( username )
+    emailExists( email )
+    signUp( )
+    updateProfilePicture( )
+    requestHost( )
+
+  LogIn
+    logIn( method , username/email , password )
+           username
+           or
+           email
+    return (success) ? userData : error
+
+Περιφέρεια > Περιφερειακή Ενότητα > Δήμος > Συνοικίες
