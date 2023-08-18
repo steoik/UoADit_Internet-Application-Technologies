@@ -1,0 +1,11 @@
+pip install virtualenv
+
+virtualenv env                          // create venv
+source env/bin/activate                 // activate venv
+django-admin startproject webapp        // create Django project webapp
+python3 manage.py runserver             // run server
+python3 webapp/manage.py startapp api   // create api folder (inside env)
+
+python -m pip install django-cors-headers // solve cors issue
+https://github.com/adamchainz/django-cors-headers
+npm install react-router-dom
