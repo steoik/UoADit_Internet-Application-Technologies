@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Home from './pages/Home'
 import UserList from './pages/UsersList'
+import User from './pages/User'
 import NotFound from './pages/NotFound'
 
 import AuthContextProvider from "./contexts/AuthContext";
@@ -28,8 +29,12 @@ function Views() {
           element: <Home />
         },
         {
-          path: "/userlist",
+          path: "/user",
           element: <UserList />
+        },
+        {
+          path: "/user/:un",
+          element: <User />
         },
         {
           path: "*",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 
 
 const UserList = () => {
@@ -19,7 +20,9 @@ const UserList = () => {
   return (
     <div>
       {users.map((user, index) => (
-        <h3 key={index}>{user.user_name}</h3>
+        <Link to={'/user/'+user.user_name}>
+          <h3 key={index}>{user.user_name}</h3>
+        </Link>
       ))}
     </div>
   )
