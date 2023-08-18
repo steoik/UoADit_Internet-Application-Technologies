@@ -1,18 +1,45 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
+import { useContext, useMemo } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import UserListPage from './pages/UsersListPage'
-import HomePage from './pages/HomePage'
+import Home from './pages/Home'
+import UserList from './pages/UsersList'
+import NotFound from './pages/NotFound'
+
+import AuthContextProvider from "./contexts/AuthContext";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="userlist" element={<UserListPage />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <Views />
+    </AuthContextProvider>
   )
 }
 
-export default App
+function Views() {
+
+  const { AuthData } = useContext(AuthContext);
+
+  const ViewRouter = useMemo(
+    () =>
+      createBrowserRouter([
+        {
+          path: "/",
+          element: <Home />
+        },
+        {
+          path: "/userlist",
+          element: <UserList />
+        },
+        {
+          path: "*",
+          element: <NotFound />
+        }
+      ]),
+    [AuthData]
+  );
+
+  return <RouterProvider router={ViewRouter} />;
+}
+
+export default App;

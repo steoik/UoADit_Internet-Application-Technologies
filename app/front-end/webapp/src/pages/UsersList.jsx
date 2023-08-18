@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-const UserListPage = () => {
+const UserList = () => {
   let [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const UserListPage = () => {
   )
 }
 
-export default UserListPage
+export default UserList
