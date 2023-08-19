@@ -1,0 +1,51 @@
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: var(--color-yellow);
+}
+
+.header__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.header__logo {
+  margin: 0 15px;
+  font-size: 25px;
+  color: var(--color-brown);
+  font-weight: bold;
+
+}
+
+.header__navbar {
+  margin: 0 15px;
+}
+
+.header__suliWrapper {
+  border: 3px solid var(--color-brown);
+  border-radius: 40px;
+  background-color: var(--color-white);
+}
+
+.header__suliWrapper button {
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  padding: 10px 15px;
+  color: var(--color-brown);
+  border-radius: 40px;
+}
+
+.header__suliWrapper button:hover {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+}
+
+.header__suliWrapper button:active {
+  background-color: var(--color-orange-bright);
+  color: var(--color-white);
+}
+

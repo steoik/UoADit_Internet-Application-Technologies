@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Source Sans Pro Topnav', sans-serif;
+}
+
+html {
+  --color-white: #fff7d4;
+  --color-yellow: #fcd843;
+  --color-orange: #e0a015;
+  --color-orange-bright: #eeaf29;
+  --color-brown: #4b3d3d;
+}
