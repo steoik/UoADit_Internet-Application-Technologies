@@ -6,6 +6,7 @@ import imghdr
 PROFILEPICTURES_PATH = 'assets/profile_pictures/'
 
 class User(models.Model):
+    role = models.CharField(max_length=25, default='tenant')
     user_name = models.CharField(max_length=25, unique=True)
     password = models.CharField(max_length=25, default='')
     first_name = models.CharField(max_length=50, default='')

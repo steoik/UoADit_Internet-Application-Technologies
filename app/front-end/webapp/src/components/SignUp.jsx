@@ -28,9 +28,9 @@ const SignUp = (props) => {
   // const handleImageChange = (event) => {
   //   const selectedFile = event.target.files[0];
   //   setSelectedImage(URL.createObjectURL(selectedFile));
-  // };  
+  // };
 
-  const [tab, setTab] = useState(2);
+  const [tab, setTab] = useState(0);
   const nextTab = () => { setTab((tab) => tab + 1) }
   const handleTabChange = async () => {
     if (tab == 0) {
