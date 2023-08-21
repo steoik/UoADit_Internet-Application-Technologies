@@ -15,11 +15,13 @@ How to install
   Django Server
     pip install Django
     pip install djangorestframework
-    pip install django-cors-headers
+    pip install django-cors-headers         // Solves CORS problem
+    pip install Pillow                      // Handles profile pictures
  
   ReactJS app
     npm install                             // Install ReactJS packages (in: app/front-end/webapp/)
     npm install react-router-dom
+    npm install axios
 
 How to run
   

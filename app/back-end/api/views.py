@@ -5,36 +5,45 @@ from rest_framework.decorators import api_view
 from .models import User
 from .serializers import UserSerializer
 
-# Create your views here.
+@api_view(['GET', 'DELETE'])
+def user(request, USERNAME):
+  # Get a User
+  if request.method == 'GET':
+    try:
+      user = User.objects.get(user_name=USERNAME)
+      serializer = UserSerializer(user, many=False)
+      return Response(serializer.data)
+    except User.DoesNotExist:
+        return Response({'Error': 'User not found'}, status=404)
+  # Delete a User
+  if request.method == 'DELETE':
+    if USERNAME is None:
+      return Response({'Error': 'User ID is required for deletion'}, status=400)
+    try:
+      user = User.objects.get(user_name=USERNAME)
+      user.delete()
+      return Response({'User deleted successfully'})
+    except User.DoesNotExist:
+      return Response({'Error': 'User not found'}, status=404)
 
-@api_view(['GET'])
-def getRoutes(request):
-  return Response("Our API")
-
-@api_view(['GET'])
-def getUsers(request):
-  users = User.objects.all()
-  serializer = UserSerializer(users, many=True)
-  return Response(serializer.data)
-
-@api_view(['GET'])
-def getUser(request, un):
-  users = User.objects.get(user_name=un)
-  serializer = UserSerializer(users, many=False)
-  return Response(serializer.data)
-
-@api_view(['POST'])
-def createUser(request):
-  data = request.data
-  user = User.objects.create(
-    user_name = data['user_name'],
-    password = data['password']
-  )
-  serializer = UserSerializer(user, many=False)
-  return Response(serializer.data)
-
-@api_view(['DELETE'])
-def deleteUser(request, un):
-  user = User.objects.get(user_name=un)
-  user.delete()
-  return Response('User was deleted!')
+@api_view(['POST', 'GET'])
+def users(request):
+  # Create a new User
+  if request.method == 'POST':
+    data = request.data
+    user = User.objects.create(
+      user_name=data.get('user_name', ''),
+      password=data.get('password', ''),
+      first_name=data.get('first_name', ''),
+      last_name=data.get('last_name', ''),
+      email=data.get('email', ''),
+      phone=data.get('phone', ''),
+      profile_picture=data.get('profile_picture', None)
+    )
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+  # Get all Users
+  if request.method == 'GET':
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)

@@ -12,7 +12,7 @@ const User = ({ props }) => {
   }, [])
   
   let getUser = async () => {
-    let response = await fetch('/api/users/' + un)
+    let response = await fetch('/users/' + un)
     let data = await response.json()
     setUser(data)
     console.log(user)

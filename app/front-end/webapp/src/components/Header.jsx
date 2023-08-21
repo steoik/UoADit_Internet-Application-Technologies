@@ -5,18 +5,24 @@ import './Header.css';
 const Header = () => {
 
   const [signUpModal, setSignUpModal] = useState(false);
-  const [logInModal, setlogInModal] = useState(false);
+  const [logInModal, setLogInModal] = useState(false);
 
   const toggleModal = (modal) => {
     if(modal == 'signUp')
       setSignUpModal((signUpModal) => !signUpModal)
     else if(modal == 'logIn')
-      setlogInModal((logInModal) => !logInModal)
+      setLogInModal((logInModal) => !logInModal)
+    else if(modal == 'false'){
+      setSignUpModal(false)
+      setLogInModal(false)
+    }
+    else
+      console.log('Error: toggleModal')
   }
 
-  // useEffect(() => {
-  //   console.log('signUpModal = ' + signUpModal + '\nlogInModal = ' + logInModal);
-  // }, [signUpModal, logInModal]);
+  useEffect(() => {
+    console.log('signUpModal = ' + signUpModal + '\nlogInModal = ' + logInModal);
+  }, [signUpModal, logInModal]);
 
   return (
     <>
@@ -30,19 +36,26 @@ const Header = () => {
               <button
                 onClick={() => toggleModal('signUp')} 
                 className='header__signUpBtn'>
-                Sign Up
+                Εγγραφή
               </button>
               <button
                 onClick={() => toggleModal('logIn')} 
                 className='header__logInBtn'>
-                Log in
+                Σύνδεση
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {signUpModal && <SignUp />}
+      {(signUpModal || logInModal) && 
+        <div className='modal'>
+            <div onClick={() => toggleModal('false')} className="modal__overlay"></div>
+            {signUpModal &&
+              <SignUp toggleModal={toggleModal} />
+            }
+        </div>
+      }
     </>
   )
 }

@@ -1,0 +1,180 @@
+/* Container */
+
+.signUp__container {
+  width: 800px;
+  height: 600px;
+  padding: 10px;
+  position: relative;
+  background-color: white;
+  border-radius: 3%;
+  display: flex;
+}
+
+/* Sidebar */
+
+.signUp__sidebar {
+  width: 40%;
+  margin: 10px;
+  border-radius: 3%;
+  background: linear-gradient(to bottom, white 1%, var(--color-white) 5%, var(--color-white) 95%, white 99%);
+}
+
+.signUp__sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.signUp__sidebar__information {
+  font-size: 17px;
+  margin-top: 100px;
+  margin-left: 10px;
+}
+
+.signUp__sidebar__information h3{
+  margin: 15px 0;
+}
+
+.signUp__sidebar__information ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.signUp__sidebar__information li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.signUp__sidebar__information li img {
+  margin-right: 5px;
+}
+
+/* Body */
+
+.signUp__body {
+  flex: 1;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.signUp__body h2 {
+  font-size: 25px;
+  padding: 20px 0;
+}
+
+.signUp__body h2 span {
+  font-size: 35px;
+}
+
+.signUp__body small {
+  font-size: 13px;
+}
+
+.signUp__body form {
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signUp__body form input {
+  height: 30px;
+  width: 300px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.signUp__body form input:focus {
+  border: 3px solid var(--color-orange);
+  border-radius: 3px;
+  outline: none;
+}
+
+.signUp__body form label {
+  text-align: left;
+  width: 300px;
+  margin-bottom: 2px;
+}
+
+.form__checkbox {
+  margin: 10px 0;
+  width: 300px;
+  display: flex;
+  align-items: center;
+}
+
+.signUp__body form .form__checkbox input {
+  margin: 0 5px 0 0;
+  padding: 0;
+  height: 20px;
+  width: 20px;
+}
+
+.signUp__body form .form__checkbox input:checked {
+  background-color: red;
+}
+
+.signUp__body button {
+  width: 180px;
+  height: 50px;
+  font-size: 25px;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: var(--color-orange);
+}
+
+.signUp__body button:hover {
+  background-color: var(--color-orange-bright);
+}
+
+.signUp__body h3 {
+  margin: 10px 0;
+}
+
+.signUp__body img.profilePic {
+  width: 256px;
+  height: 256px;
+  object-fit: cover;
+  border-radius: 50%;
+  fill: red;
+}
+
+.signUp__body button {
+  position: absolute;
+  bottom: 50px;
+}
+
+.signUp__body button#closeModalBtn {
+  position: absolute;
+  background-color: transparent;
+  right: 5px;
+  top: 5px;
+  height: 35px;
+  width: 35px;
+  padding: 0;
+}
+
+button#closeModalBtn img {
+  height: 100%;
+}
+
+button#closeModalBtn:hover {
+  background-color: rgba(50, 50, 50, 0.2);
+  border-radius: 50%;
+}
+
+.signUp_success {
+  height: 100%;
+  padding-top: 150px;
+}
+
+.signUp_success img{
+  height: 150px;
+  margin-top: 20px;
+}
