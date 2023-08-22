@@ -1,0 +1,75 @@
+.logIn__container {
+  width: 480px;
+  height: 600px;
+  padding: 10px;
+  position: relative;
+  background-color: white;
+  border-radius: 3%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.logIn__container h2 {
+  font-size: 40px;
+  padding: 30px;
+}
+
+.logIn__container form {
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logIn__container form input {
+  height: 30px;
+  width: 300px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.logIn__container form input:focus {
+  border: 3px solid var(--color-orange);
+  border-radius: 3px;
+  outline: none;
+}
+
+.logIn__container form label {
+  text-align: left;
+  width: 300px;
+  margin-bottom: 2px;
+}
+
+.logIn__container button {
+  width: 180px;
+  height: 50px;
+  font-size: 25px;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: var(--color-orange);
+  position: absolute;
+  bottom: 50px;
+}
+
+.logIn__container button:hover {
+  background-color: var(--color-orange-bright);
+}
+
+.logIn__container button#closeModalBtn {
+  position: absolute;
+  background-color: transparent;
+  right: 5px;
+  top: 5px;
+  height: 35px;
+  width: 35px;
+  padding: 0;
+}
+
+button#closeModalBtn:hover {
+  background-color: rgba(50, 50, 50, 0.2);
+  border-radius: 50%;
+}

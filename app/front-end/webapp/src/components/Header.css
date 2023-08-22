@@ -1,6 +1,6 @@
 .header {
   width: 100%;
-  /* height: 80px; */
+  height: 100px;
   padding: 10px 0;
   background-color: var(--color-yellow);
 }
@@ -16,7 +16,7 @@
 
 .header__logo {
   margin: 0 15px;
-  font-size: 25px;
+  font-size: 30px;
   color: var(--color-brown);
   font-weight: bold;
 
@@ -49,6 +49,15 @@
 .header__suliWrapper button:active {
   background-color: var(--color-orange-bright);
   color: var(--color-white);
+}
+
+.header__avatar img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid var(--color-brown);
+  background-color: var(--color-white);
 }
 
 .modal, .modal__overlay {

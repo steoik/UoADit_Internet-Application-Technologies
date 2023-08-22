@@ -1,14 +1,17 @@
+import { useContext, useState } from 'react';
+import { AuthContext } from "../contexts/AuthContext";
 import './SignUp.css';
-import { useEffect, useState } from 'react';
-import axios from "axios";
+import { createUser, updateProfilePicture } from '../api/userAPI'
 
 import CheckCircle_W500_O24 from '../assets/check_circle_FILL0_wght500_GRAD200_opsz24.svg'
 import CheckCircle_W400_O48 from '../assets/check_circle_FILL0_wght400_GRAD0_opsz48.svg'
 import Close from '../assets/close_FILL0_wght500_GRAD200_opsz40.svg'
-import DefaultProfile from '../assets/user-circle-svgrepo-com.svg'
+import DefaultProfile from '../assets/person_FILL0_wght300_GRAD0_opsz48.svg'
 
 const SignUp = (props) => {
-
+  
+  const { login } = useContext(AuthContext);
+  
   const [signUpData, setSignUpData] = useState({
     user_name: '',
     password: '',
@@ -21,56 +24,33 @@ const SignUp = (props) => {
     requestHost: false
   });
 
-  useEffect(() => {
-    console.log(signUpData.profile_picture)
-  }, [signUpData])
-
-  // const handleImageChange = (event) => {
-  //   const selectedFile = event.target.files[0];
-  //   setSelectedImage(URL.createObjectURL(selectedFile));
-  // };
-
   const [tab, setTab] = useState(0);
   const nextTab = () => { setTab((tab) => tab + 1) }
   const handleTabChange = async () => {
     if (tab == 0) {
-      if (signUpData.password != signUpData.confirmPassword)
-        console.log('Password, confirmPassword mismatch')
-      // Check if the username already exists
+      // Check if the username is taken
+      // Check if the password confirmPassword match
       nextTab()
     } else if (tab == 1) {
+      // Check if the email is taken
       nextTab()
     } else if (tab == 2) {
-      // Create User
-      try {
-        const response = await fetch('/api/users/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            user_name: signUpData.user_name,
-            password: signUpData.password,
-            first_name: signUpData.first_name,
-            last_name: signUpData.last_name,
-            email: signUpData.email,
-            phone: signUpData.phone,
-            profile_picture: signUpData.profile_picture
-          })
-        })
-        console.log('User created:', response.data);
-        nextTab()
-      } catch (error) {
-        console.error('Error creating user:', error);
-        props.toggleModal('signUp')
+      let data = {          
+        user_name: signUpData.user_name,
+        password: signUpData.password,
+        first_name: signUpData.first_name,
+        last_name: signUpData.last_name,
+        email: signUpData.email,
+        phone: signUpData.phone,
       }
+      await createUser(data)
+      
+      await updateProfilePicture(signUpData.user_name, signUpData.profile_picture)
+      
+      login(signUpData.user_name, signUpData.password)
+    
+      nextTab()
     }
-    // console.log(
-    //   JSON.stringify(signUpData, null, 2),
-    //   '\npassword :', password,
-    //   '\nconfirmPassword :', confirmPassword,
-    //   '\nselectedImage :', selectedImage,
-    // );
   }
 
   return (
@@ -101,9 +81,6 @@ const SignUp = (props) => {
             <small>Ακολούθησε την φόρμα εγγραφής για να δημιουργήσεις τον δικό σου λογαριασμό!</small>
           </>
         }
-        <button id='closeModalBtn' onClick={() => props.toggleModal('signUp')}>
-          <img src={Close} />
-        </button>
         {tab == 0 &&
           <>
             <form>
@@ -174,14 +151,14 @@ const SignUp = (props) => {
           <>
             <h3>Επίλεξε φωτογραφία προφίλ </h3>
             {signUpData.profile_picture ?
-              <img className='profilePic' src={signUpData.profile_picture} alt="Selected Profile" />
+              <img className='profilePic' src={URL.createObjectURL(signUpData.profile_picture)} alt="Profile picture" />
               :
-              <img className='profilePic' src={DefaultProfile} alt="Default Profile" />
+              <img className='profilePic' src={DefaultProfile} alt="Default profile picture" />
             }
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['profile_picture']: URL.createObjectURL(e.target.files[0]) }))}
+              onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['profile_picture']: e.target.files[0] }))}
             />
             <button onClick={() => handleTabChange()}>Εγγραφή</button>
           </>
@@ -195,6 +172,9 @@ const SignUp = (props) => {
             <button onClick={() => props.toggleModal('signUp')}>Κλείσιμο</button>
           </>
         }
+        <button id='closeModalBtn' onClick={() => props.toggleModal('signUp')}>
+          <img src={Close} />
+        </button>
       </div>
     </div>
   )

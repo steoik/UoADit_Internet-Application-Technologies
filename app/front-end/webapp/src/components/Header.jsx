@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import SignUp from './SignUp';
+import LogIn from './LogIn';
 import './Header.css';
+import { AuthContext } from "../contexts/AuthContext";
+import DefaultProfile from '../assets/person_FILL0_wght300_GRAD0_opsz48.svg'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+  
+  const { AuthData } = useContext(AuthContext);
 
   const [signUpModal, setSignUpModal] = useState(false);
   const [logInModal, setLogInModal] = useState(false);
@@ -17,33 +23,37 @@ const Header = () => {
       setLogInModal(false)
     }
     else
-      console.log('Error: toggleModal')
+      console.error('toggleModal')
   }
-
-  useEffect(() => {
-    console.log('signUpModal = ' + signUpModal + '\nlogInModal = ' + logInModal);
-  }, [signUpModal, logInModal]);
-
   return (
     <>
       <header className='header'>
         <div className='header__content'>
           <div className='header__logo'>
+            {/* <a href='/'> */}
             <h1>Website</h1>
+            {/* </a> */}
           </div>
           <div className='header__navbar'>
-            <div className='header__suliWrapper'>
-              <button
-                onClick={() => toggleModal('signUp')} 
-                className='header__signUpBtn'>
-                Εγγραφή
-              </button>
-              <button
-                onClick={() => toggleModal('logIn')} 
-                className='header__logInBtn'>
-                Σύνδεση
-              </button>
-            </div>
+            {!AuthData.isLoggedIn ? (
+              <div className='header__suliWrapper'>
+                <button
+                  onClick={() => toggleModal('signUp')} 
+                  className='header__signUpBtn'>
+                  Εγγραφή
+                </button>
+                <button
+                  onClick={() => toggleModal('logIn')} 
+                  className='header__logInBtn'>
+                  Σύνδεση
+                </button>
+              </div>
+            ) : (
+              // Check the AuthData and see if the User has a profile picture
+              <div className='header__avatar'>
+                <img src={DefaultProfile} alt='Default_Profile'/>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -51,9 +61,11 @@ const Header = () => {
       {(signUpModal || logInModal) && 
         <div className='modal'>
             <div onClick={() => toggleModal('false')} className="modal__overlay"></div>
-            {signUpModal &&
+            {signUpModal ? (
               <SignUp toggleModal={toggleModal} />
-            }
+            ) : (
+              <LogIn toggleModal={toggleModal} />
+            )}
         </div>
       }
     </>

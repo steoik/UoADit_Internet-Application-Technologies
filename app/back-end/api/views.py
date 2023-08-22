@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
 
 from .models import User
 from .serializers import UserSerializer
@@ -40,6 +40,7 @@ def users(request):
       phone=data.get('phone', ''),
       profile_picture=data.get('profile_picture', None)
     )
+
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
   # Get all Users
@@ -47,3 +48,16 @@ def users(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
+
+@api_view(['POST', 'GET', 'DELETE'])
+def userProfile(request, USERNAME):
+  user = get_object_or_404(User, user_name=USERNAME)
+  # Update User profile picture
+  if request.method == 'POST':
+    data = request.data
+    user = User.objects.get(user_name=USERNAME)
+    user.profile_picture = data.get('profile_picture')
+    user.save()
+    return Response({'User profile picture updated'})
+  # Get the User profile picture
+  # Delete the User profile picture

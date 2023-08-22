@@ -13,7 +13,7 @@
 /* Sidebar */
 
 .signUp__sidebar {
-  width: 40%;
+  width: 320px;
   margin: 10px;
   border-radius: 3%;
   background: linear-gradient(to bottom, white 1%, var(--color-white) 5%, var(--color-white) 95%, white 99%);

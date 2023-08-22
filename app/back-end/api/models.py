@@ -1,6 +1,4 @@
-import os
 from django.db import models
-import imghdr
 
 # Create your models here.
 PROFILEPICTURES_PATH = 'assets/profile_pictures/'
