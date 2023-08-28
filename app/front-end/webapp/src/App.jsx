@@ -26,7 +26,7 @@ function App() {
 
 function Views() {
 
-  const { AuthData } = useContext(AuthContext);
+  const { authData } = useContext(AuthContext);
 
   const ViewRouter = useMemo(
     () =>
@@ -48,7 +48,7 @@ function Views() {
           element: <NotFound />
         }
       ]),
-    [AuthData]
+    [authData]
   );
 
   return <RouterProvider router={ViewRouter} />;

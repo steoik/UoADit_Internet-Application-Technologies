@@ -9,13 +9,13 @@ const LogIn = (props) => {
   const { login } = useContext(AuthContext);
 
   const [logInData, setLogInData] = useState({
-    user_name: '',
+    username: '',
     password: ''
   })
   const handleLogIn = async () => {
 
-    login(logInData.user_name, logInData.password)
-    props.toggleModal('logIn')
+    login(logInData.username, logInData.password)
+    // props.toggleModal('logIn')
   }
 
   return (
@@ -26,7 +26,7 @@ const LogIn = (props) => {
         <input
           type='text'
           name='username'
-          onChange={(e) => setLogInData(prevData => ({ ...prevData, ['user_name']: e.target.value }))}
+          onChange={(e) => setLogInData(prevData => ({ ...prevData, ['username']: e.target.value }))}
         />
         <label>Κωδικός</label>
         <input

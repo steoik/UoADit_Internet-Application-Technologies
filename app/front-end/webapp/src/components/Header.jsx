@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   
-  const { AuthData } = useContext(AuthContext);
+  const { authData } = useContext(AuthContext);
 
   const [signUpModal, setSignUpModal] = useState(false);
   const [logInModal, setLogInModal] = useState(false);
@@ -35,7 +35,7 @@ const Header = () => {
             {/* </a> */}
           </div>
           <div className='header__navbar'>
-            {!AuthData.isLoggedIn ? (
+            {!authData.isLoggedIn ? (
               <div className='header__suliWrapper'>
                 <button
                   onClick={() => toggleModal('signUp')} 
@@ -49,7 +49,7 @@ const Header = () => {
                 </button>
               </div>
             ) : (
-              // Check the AuthData and see if the User has a profile picture
+              // Check the authData and see if the User has a profile picture
               <div className='header__avatar'>
                 <img src={DefaultProfile} alt='Default_Profile'/>
               </div>

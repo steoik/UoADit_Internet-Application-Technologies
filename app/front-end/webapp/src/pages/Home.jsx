@@ -5,12 +5,12 @@ import './Home.css'
 
 const Home = () => {
 
-  const { AuthData } = useContext(AuthContext);
+  const { authData } = useContext(AuthContext);
 
   return (
     <div className="home">
       HOME Page
-      {AuthData.isLoggedIn ? (
+      {authData.isLoggedIn ? (
         <p>Logged in</p>
       ) : (
         <p>Logged out</p>
