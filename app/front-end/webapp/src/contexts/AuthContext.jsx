@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import jwt_decode from "jwt-decode"
 
 export const AuthContext = createContext()
@@ -18,6 +18,35 @@ const AuthContextProvider = ({children}) => {
       role: 'anonymous'
     }
   )
+  let [loading, setLoading] = useState(true)
+
+  const updateToken = async () => {
+    console.log('updateToken called')
+    let response = await fetch('/api/token/refresh/', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({'refresh':authTokens.refresh})
+    })
+    if (response.ok) {
+      let data = await response.json()
+      setAuthTokens(data)
+      localStorage.setItem('authTokens', JSON.stringify(data))
+    } else {
+      logout()
+    }
+  }
+
+  useEffect(() => {
+    let fourMinutes = 1000 * 60 * 4
+    let interval = setInterval(() => {
+      if (authTokens) {
+        updateToken()
+      }
+    }, fourMinutes)
+    return ()=> clearInterval(interval)
+  }, [authTokens, loading])
 
   const login = async (username, password) => {
     let response = await fetch('/api/token/', {
@@ -30,6 +59,14 @@ const AuthContextProvider = ({children}) => {
     if (response.ok) {
       let data = await response.json()
       let decoded_data = jwt_decode(data.access)
+      setAuthData(
+        {
+          isLoggedIn: true,
+          username: decoded_data.username, 
+          role: decoded_data.role
+        }
+      )
+      setAuthTokens(data)
       localStorage.setItem('authData', JSON.stringify(decoded_data))
       localStorage.setItem('authTokens', JSON.stringify(data))
       console.log('User logged in')

@@ -44,7 +44,7 @@ Problems faced & fixed
 
 The SimpleJWT library works only on the primary User model. So instead of having a independent User model we had to extend the default User model and create an AbstractUser.
 
-
+Authentication State Persistence
 
 
 

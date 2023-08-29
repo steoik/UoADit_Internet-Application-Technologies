@@ -13,9 +13,8 @@ const LogIn = (props) => {
     password: ''
   })
   const handleLogIn = async () => {
-
     login(logInData.username, logInData.password)
-    // props.toggleModal('logIn')
+    props.toggleModal('logIn')
   }
 
   return (
