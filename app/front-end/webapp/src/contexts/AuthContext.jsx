@@ -21,25 +21,32 @@ const AuthContextProvider = ({children}) => {
   let [loading, setLoading] = useState(true)
 
   const updateToken = async () => {
-    console.log('updateToken called')
-    let response = await fetch('/api/token/refresh/', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({'refresh':authTokens.refresh})
-    })
-    if (response.ok) {
-      let data = await response.json()
-      setAuthTokens(data)
-      localStorage.setItem('authTokens', JSON.stringify(data))
-    } else {
-      logout()
+    if (authTokens) {
+      let response = await fetch('/api/token/refresh/', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({'refresh':authTokens?.refresh})
+      })
+      if (response.ok) {
+        let data = await response.json()
+        setAuthTokens(data)
+        localStorage.setItem('authTokens', JSON.stringify(data))
+      } else {
+        logout()
+      }
     }
+
+    setLoading(false)
   }
 
   useEffect(() => {
-    let fourMinutes = 1000 * 60 * 4
+
+    if (loading)
+      updateToken()
+
+    let fourMinutes = 1000 * 60 * 4  
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken()
@@ -84,12 +91,14 @@ const AuthContextProvider = ({children}) => {
       }
     )
     setAuthTokens(null)
+    localStorage.removeItem('authData');
+    localStorage.removeItem('authTokens');
     console.log('User logged out')
   };
 
   return (
     <AuthContext.Provider value={{ authData, login, logout }}>
-      {children}
+      {loading ? null : children}
     </AuthContext.Provider>
   );
 };

@@ -53,3 +53,73 @@ Resources Used
   Set-up : https://www.youtube.com/watch?v=tYKRAXIio28&t=11501s
   Custom User Model : https://www.youtube.com/watch?v=Ae7nc1EGv-A
   JWT : https://www.youtube.com/watch?v=xjMP0hspNLE&t=1s
+
+
+
+
+
+
+
+listing{
+
+  General Info
+  
+    price (integer, in euro)
+    payment (month/night)
+    location
+      Συνοικία < Πόλη < Νομός < Περιφέρεια
+      Neighborhood < City < Prefecture < Region
+    surface (in sq meters)
+    floor (basement, ground, 1/2/3...)
+      υπόγειο, ισόγειο, 1/2/3...
+    type (διαμέρισμα, μεζονέτα, μονοκατοικία)
+    description
+
+    For month payment listings
+
+      minimum reservation period
+      starting price
+      extra price per guest
+      maximum guests
+
+
+  Photos
+  Host info
+
+  Map
+
+    address
+    long
+    lat
+
+
+  Space Info
+
+    beds
+    bedrooms
+    kitchens
+    bathrooms
+    living room
+
+  
+  Provisions (Παροχές)
+
+    Wifi
+    heating
+    cooling
+    television
+    parking
+    elevator
+
+  Rules
+
+    smoking
+    pets
+    parties
+
+
+  Ratings
+
+    number of ratings
+    average rating
+}

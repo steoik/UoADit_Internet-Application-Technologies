@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import './App.css'
 
 import Home from './pages/Home'
+import Search from './pages/Search'
 import UserList from './pages/UsersList'
 import User from './pages/User'
 import NotFound from './pages/NotFound'
@@ -34,6 +35,10 @@ function Views() {
         {
           path: "/",
           element: <Home />
+        },
+        {
+          path: "/search",
+          element: <Search />
         },
         {
           path: "/user",

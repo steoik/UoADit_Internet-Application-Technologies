@@ -4,11 +4,10 @@ import LogIn from './LogIn';
 import './Header.css';
 import { AuthContext } from "../contexts/AuthContext";
 import DefaultProfile from '../assets/person_FILL0_wght300_GRAD0_opsz48.svg'
-import { Link } from 'react-router-dom';
 
 const Header = () => {
   
-  const { authData } = useContext(AuthContext);
+  const { authData, logout } = useContext(AuthContext);
 
   const [signUpModal, setSignUpModal] = useState(false);
   const [logInModal, setLogInModal] = useState(false);
@@ -25,14 +24,19 @@ const Header = () => {
     else
       console.error('toggleModal')
   }
+
+  const handleLogOut = () => {
+    logout()
+  }
+
   return (
     <>
       <header className='header'>
         <div className='header__content'>
           <div className='header__logo'>
-            {/* <a href='/'> */}
-            <h1>Website</h1>
-            {/* </a> */}
+            <a href='/'>
+              <h1>Website</h1>
+            </a>
           </div>
           <div className='header__navbar'>
             {!authData.isLoggedIn ? (
@@ -52,6 +56,11 @@ const Header = () => {
               // Check the authData and see if the User has a profile picture
               <div className='header__avatar'>
                 <img src={DefaultProfile} alt='Default_Profile'/>
+                <div className="avatar__dropdown">
+                  <a href="#">Προφίλ</a>
+                  <a href="#">Μηνύματα</a>
+                  <a href="#" onClick={handleLogOut}>Αποσύνεση</a>
+                </div>
               </div>
             )}
           </div>

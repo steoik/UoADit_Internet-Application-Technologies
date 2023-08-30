@@ -24,7 +24,7 @@ export const createUser = async (data) => {
   }
 }
 
-export const updateProfilePicture = async (user_name, profile_picture) => {
+export const updateAvatar = async (user_name, profile_picture) => {
   try {
     const formData = new FormData()
     formData.append('profile_picture', profile_picture)

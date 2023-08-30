@@ -13,16 +13,35 @@ const SignUp = (props) => {
   const { login } = useContext(AuthContext);
   
   const [signUpData, setSignUpData] = useState({
-    user_name: '',
+    username: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',     // non request data
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
-    profile_picture: null,
-    requestHost: false
+    profile_picture: null,    // separate request data
+    request_host: false       // non request data
   });
+
+  const handleSignUpFormChange = (e) => {
+    if (e.target.name == 'requestHost') {
+      setSignUpData({
+        ...signUpData,
+        [e.target.name]: (e.target.value == 'on' ? true : false)
+      });
+    } else if (e.target.name == 'profile_picture') {      
+      setSignUpData({
+        ...signUpData,
+        [e.target.name]: e.target.files[0]
+      });
+    } else {
+      setSignUpData({
+        ...signUpData,
+        [e.target.name]: e.target.value
+      });
+    }
+  };
 
   const [tab, setTab] = useState(0);
   const nextTab = () => { setTab((tab) => tab + 1) }
@@ -36,7 +55,7 @@ const SignUp = (props) => {
       nextTab()
     } else if (tab == 2) {
       let data = {          
-        user_name: signUpData.user_name,
+        username: signUpData.username,
         password: signUpData.password,
         first_name: signUpData.first_name,
         last_name: signUpData.last_name,
@@ -45,9 +64,10 @@ const SignUp = (props) => {
       }
       await createUser(data)
       
-      await updateProfilePicture(signUpData.user_name, signUpData.profile_picture)
+      if (signUpData.profile_picture)
+        await updateAvatar(signUpData.username, signUpData.profile_picture)
       
-      login(signUpData.user_name, signUpData.password)
+      login(signUpData.username, signUpData.password)
     
       nextTab()
     }
@@ -88,19 +108,19 @@ const SignUp = (props) => {
               <input
                 type='text'
                 name='username'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['user_name']: e.target.value }))}
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <label>Κωδικός</label>
               <input
                 type='password'
                 name='password'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['password']: e.target.value }))}
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <label>Επιβεβαίωση Κωδικού</label>
               <input
                 type='password'
                 name='confirm_password'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['confirmPassword']: e.target.value }))}
+                onChange={(e) => handleSignUpFormChange(e)}
               />
             </form>
 
@@ -113,32 +133,32 @@ const SignUp = (props) => {
               <label>Όνομα</label>
               <input
                 type='text'
-                name='fname'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['first_name']: e.target.value }))}
+                name='first_name'
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <label>Επίθετο</label>
               <input
                 type='text'
-                name='lname'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['last_name']: e.target.value }))}
+                name='last_name'
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <label>Email</label>
               <input
                 type='text'
                 name='email'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['email']: e.target.value }))}
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <label>Τηλέφωνο</label>
               <input
                 type='text'
                 name='phone'
-                onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['phone']: e.target.value }))}
+                onChange={(e) => handleSignUpFormChange(e)}
               />
               <div className='form__checkbox'>
                 <input
                   type='checkbox'
-                  name='requestHost'
-                  onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['requestHost']: (e.target.value == 'on' ? true : false) }))}
+                  name='request_host'
+                  onChange={(e) => handleSignUpFormChange(e)}
                 />
                 <label>Θέλω να γίνω Οικοδεσπότης</label>
               </div>
@@ -158,7 +178,7 @@ const SignUp = (props) => {
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setSignUpData(prevData => ({ ...prevData, ['profile_picture']: e.target.files[0] }))}
+              onChange={(e) => handleSignUpFormChange(e)}
             />
             <button onClick={() => handleTabChange()}>Εγγραφή</button>
           </>

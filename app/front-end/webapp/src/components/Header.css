@@ -56,7 +56,7 @@
   height: 80px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid var(--color-brown);
+  border: 4px solid var(--color-brown);
   background-color: var(--color-white);
 }
 
@@ -77,3 +77,34 @@
 .modal__overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.header__avatar:hover .avatar__dropdown {
+  display: flex;
+}
+
+.avatar__dropdown {
+  right: 15px;
+  display: none;
+  position: absolute;
+  background-color: var(--color-white);
+  border-radius: 10%;
+  border: 3px solid var(--color-brown);
+  flex-direction: column;
+  align-items: left;
+}
+
+.avatar__dropdown a {
+  color: var(--color-brown);
+  font-size: 25px;
+  margin-left: 0;
+  text-decoration: none;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.avatar__dropdown a:hover {
+  background-color: var(--color-yellow);
+
+}
+
