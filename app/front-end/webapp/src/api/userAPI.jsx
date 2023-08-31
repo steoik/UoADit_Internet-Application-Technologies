@@ -29,7 +29,7 @@ export const updateAvatar = async (user_name, profile_picture) => {
     const formData = new FormData()
     formData.append('profile_picture', profile_picture)
     
-    response = await fetch(`${API_URL}/users/${user_name}/profile`, {
+    response = await fetch(`${API_URL}/users/${user_name}/avatar`, {
       method: 'POST',
       body: formData
     })
@@ -37,6 +37,30 @@ export const updateAvatar = async (user_name, profile_picture) => {
       throw new Error('Failed to update the profile picture.');
     else
       console.log('Profile picture updated successfully!')
+  }
+  catch (error) {
+    console.error(error);
+  }
+  finally {
+    // console.log(response);
+  }
+}
+
+export const getAvatar = async (user_name) => {
+  try {
+    response = await fetch(`${API_URL}/users/${user_name}/avatar`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (!response.ok)
+      throw new Error('Failed to receive user Avatar.');
+    else {
+      console.log('User Avatar received successfully!')
+      const avatar = await response.blob();
+      return avatar;
+    }
   }
   catch (error) {
     console.error(error);
@@ -55,7 +79,7 @@ export const getUsers = async () => {
       }
     })
     if (!response.ok)
-    throw new Error('Failed receive users.');
+      throw new Error('Failed to receive users.');
   else{
     console.log('Users received successfully!')
     const users = await response.json();

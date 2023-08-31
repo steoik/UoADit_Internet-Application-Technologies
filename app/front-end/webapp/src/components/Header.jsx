@@ -63,7 +63,11 @@ const Header = () => {
               {/* } */}
               </div>
               <div className='header__avatar'>
-                <img src={DefaultProfile} alt='Default_Profile'/>
+                {authData.avatar ? (
+                  <img src={URL.createObjectURL(authData.avatar)} alt='User_Avatar'/>
+                ) : (
+                  <img src={DefaultProfile} alt='Default_Profile'/>
+                )}
                 <div className="avatar__dropdown">
                   <p><span>Καλωσήρθες</span> <br></br> {authData.username}</p>
                   <a href="#">Προφίλ</a>

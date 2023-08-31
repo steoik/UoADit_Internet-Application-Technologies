@@ -179,6 +179,7 @@ const SignUp = (props) => {
             <input
               type="file"
               accept="image/*"
+              name="profile_picture"
               onChange={(e) => handleSignUpFormChange(e)}
             />
             <button onClick={() => handleTabChange()}>Εγγραφή</button>

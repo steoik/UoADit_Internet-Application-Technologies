@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react"
 import jwt_decode from "jwt-decode"
 
+import { getAvatar } from '../api/userAPI'
+
 export const AuthContext = createContext()
 
 const AuthContextProvider = ({children}) => {
@@ -10,12 +12,14 @@ const AuthContextProvider = ({children}) => {
     {
       isLoggedIn: true, 
       username: JSON.parse(localStorage.getItem('authData')).username, 
-      role: JSON.parse(localStorage.getItem('authData')).role
+      role: JSON.parse(localStorage.getItem('authData')).role,
+      avatar: JSON.parse(localStorage.getItem('authData')).avatar
     } :
     {
       isLoggedIn: false, 
       username: '', 
-      role: 'anonymous'
+      role: 'anonymous',
+      avatar: null
     }
   )
   let [loading, setLoading] = useState(true)
@@ -43,7 +47,6 @@ const AuthContextProvider = ({children}) => {
   }
 
   useEffect(() => {
-
     if (loading)
       updateToken()
 
@@ -71,7 +74,8 @@ const AuthContextProvider = ({children}) => {
         {
           isLoggedIn: true,
           username: decoded_data.username, 
-          role: decoded_data.role
+          role: decoded_data.role,
+          avatar: await getAvatar(username)
         }
       )
       setAuthTokens(data)
@@ -88,7 +92,8 @@ const AuthContextProvider = ({children}) => {
       {
         isLoggedIn: false, 
         username: '', 
-        role: 'anonymous'
+        role: 'anonymous',
+        avatar: null
       }
     )
     setAuthTokens(null)

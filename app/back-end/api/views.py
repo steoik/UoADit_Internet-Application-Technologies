@@ -1,8 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import FileResponse
 
-# from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -58,10 +59,7 @@ def users(request):
 @api_view(['POST'])
 def host_request(request, USERNAME):
   data = request.data
-  try:
-    user = CustomUser.objects.get(username=USERNAME)
-  except CustomUser.DoesNotExist:
-    return Response({'error': 'User not found.'})
+  user = get_object_or_404(CustomUser, username=USERNAME)
   if data.get('status') == 'approved':
     user.role = 'host'
     user.host_request_status  = 'approved'
@@ -70,17 +68,23 @@ def host_request(request, USERNAME):
   user.save()
   return Response({'message': 'Host request status updated successfully.'})
 
-# @api_view(['POST', 'GET', 'DELETE'])
-# def userProfile(request, USERNAME):
-#   user = get_object_or_404(User, user_name=USERNAME)
-#   # Update User profile picture
-#   if request.method == 'POST':
-#     data = request.data
-#     user = User.objects.get(user_name=USERNAME)
-#     user.profile_picture = data.get('profile_picture')
-#     user.save()
-#     return Response({'User profile picture updated'})
-  # Get the User profile picture
+@api_view(['POST', 'GET', 'DELETE'])
+def avatar(request, USERNAME):
+  user = get_object_or_404(CustomUser, username=USERNAME)
+  # Update user Avatar
+  if request.method == 'POST':
+    data = request.data
+    user = CustomUser.objects.get(username=USERNAME)
+    user.profile_picture = data.get('profile_picture')
+    user.save()
+    return Response({'User avatar updated successfully!'})
+  # Get user Avatar
+  if request.method == 'GET':
+    if user.profile_picture:
+      image_path = user.profile_picture.path
+      return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
+    else:
+      return Response(None, status=204)
   # Delete the User profile picture
 
 @api_view(['GET'])
