@@ -1,0 +1,28 @@
+.pagination button {
+  border: none;
+  background-color: var(--color-white);
+  color: #333;
+  font-size: 16px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: var(--color-yellow);
+}
+
+.pagination button.active {
+  color: white;
+  background-color: var(--color-orange);
+}
+
+.pagination button:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.pagination button:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}

@@ -19,11 +19,34 @@
   font-size: 30px;
   color: var(--color-brown);
   font-weight: bold;
-
+}
+.header__logo a {
+  text-decoration: none;
+}
+.header__logo a:active, a:visited {
+  color: var(--color-brown);
 }
 
 .header__navbar {
-  margin: 0 15px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header__navbar a {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 25px;
+  border-radius: 25px;
+  color: var(--color-brown);
+  text-decoration: none;
+  font-weight: bolder;
+  /* background-color: red; */
+}
+.header__navbar a:hover {
+  color: var(--color-brown);
+  background-color: var(--color-orange);;
 }
 
 .header__suliWrapper {
@@ -83,7 +106,8 @@
 }
 
 .avatar__dropdown {
-  right: 15px;
+  width: 200px;
+  right: 20px;
   display: none;
   position: absolute;
   background-color: var(--color-white);
@@ -93,10 +117,22 @@
   align-items: left;
 }
 
+.avatar__dropdown p {
+  
+  font-size: 25px;
+  margin: 10px 10px 0 10px;
+  padding: 5px;
+  border-bottom: 3px solid var(--color-brown);
+  font-weight: bolder;
+}
+.avatar__dropdown span {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
 .avatar__dropdown a {
   color: var(--color-brown);
   font-size: 25px;
-  margin-left: 0;
   text-decoration: none;
   margin: 10px;
   padding: 5px;

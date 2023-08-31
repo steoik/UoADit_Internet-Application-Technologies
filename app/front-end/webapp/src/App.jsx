@@ -1,13 +1,15 @@
 import { useContext, useMemo } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
 
 import './App.css'
 
 import Home from './pages/Home'
 import Search from './pages/Search'
+import Admin from './pages/Admin'
+import NotFound from './pages/NotFound'
+
 import UserList from './pages/UsersList'
 import User from './pages/User'
-import NotFound from './pages/NotFound'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -39,6 +41,10 @@ function Views() {
         {
           path: "/search",
           element: <Search />
+        },
+        {
+          path: "/admin",
+          element: <>{authData.role == "admin" ? <Admin /> : <Navigate to={"/"} />}</>
         },
         {
           path: "/user",

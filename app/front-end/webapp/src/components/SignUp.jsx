@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from "../contexts/AuthContext";
 import './SignUp.css';
-import { createUser, updateProfilePicture } from '../api/userAPI'
+import { createUser, updateAvatar } from '../api/userAPI'
 
 import CheckCircle_W500_O24 from '../assets/check_circle_FILL0_wght500_GRAD200_opsz24.svg'
 import CheckCircle_W400_O48 from '../assets/check_circle_FILL0_wght400_GRAD0_opsz48.svg'
@@ -20,15 +20,15 @@ const SignUp = (props) => {
     last_name: '',
     email: '',
     phone: '',
+    host_request_status: '',
     profile_picture: null,    // separate request data
-    request_host: false       // non request data
   });
 
   const handleSignUpFormChange = (e) => {
-    if (e.target.name == 'requestHost') {
+    if (e.target.name == 'host_request_status') {
       setSignUpData({
         ...signUpData,
-        [e.target.name]: (e.target.value == 'on' ? true : false)
+        [e.target.name]: (e.target.value == 'on' ? 'pending' : '')
       });
     } else if (e.target.name == 'profile_picture') {      
       setSignUpData({
@@ -61,6 +61,7 @@ const SignUp = (props) => {
         last_name: signUpData.last_name,
         email: signUpData.email,
         phone: signUpData.phone,
+        host_request_status: signUpData.host_request_status,
       }
       await createUser(data)
       
@@ -157,7 +158,7 @@ const SignUp = (props) => {
               <div className='form__checkbox'>
                 <input
                   type='checkbox'
-                  name='request_host'
+                  name='host_request_status'
                   onChange={(e) => handleSignUpFormChange(e)}
                 />
                 <label>Θέλω να γίνω Οικοδεσπότης</label>

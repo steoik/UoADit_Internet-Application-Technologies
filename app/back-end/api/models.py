@@ -55,6 +55,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
   role = models.CharField(max_length=25, default='tenant')
   phone = models.CharField(max_length=15, default='')
   profile_picture = models.ImageField(upload_to=PROFILEPICTURES_PATH, null=True, blank=True)
+  host_request_status = models.CharField(max_length=15, default='') # ['', 'pending', 'approved', 'denied']
 
   objects = CustomUserManager()
   USERNAME_FIELD = 'username'

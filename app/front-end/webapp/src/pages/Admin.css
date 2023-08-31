@@ -1,0 +1,98 @@
+.admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.admin__navbar {
+  width: 100%;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  
+}
+
+.admin__navbar button{
+  margin: 0 100px;
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
+}
+
+.admin__content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+table.admin__userList {
+  /* width: 80%; */
+  border-collapse: collapse;
+}
+
+.admin__userList tr {
+  height: 50px;
+}
+
+.userList-header {
+  height: 80px;
+  font-size: 20px;
+}
+
+.admin__userList th{
+  width: 200px;
+  text-align: left;
+  background-color: var(--color-orange);
+}
+
+.admin__userList td, .admin__userList th{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.admin__userList tr:nth-child(even){
+  background-color: var(--color-white);
+}
+.admin__userList tr:hover{
+  background-color: var(--color-yellow);
+}
+
+.pagination__wrapper {
+  width: calc(200px * 6);
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.hostRequest__buttons {
+  display: flex;
+  justify-content:space-around;
+  
+}
+
+.hostRequest__buttons button {
+  padding: 10px 10px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hostRequest__buttons button#approve {
+  background-color: #28a745;
+}
+.hostRequest__buttons button#approve:hover {
+  background-color: #218838;
+}
+.hostRequest__buttons button#deny {
+  background-color: #dc3545;
+}
+.hostRequest__buttons button#deny:hover {
+  background-color: #c82333;
+}

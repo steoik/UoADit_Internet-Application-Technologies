@@ -10,6 +10,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('', views.getRoutes),
     path('users/', views.users, name='createUser-getUsers'),
+    path('users/<str:USERNAME>/host', views.host_request, name='host_request'),
     # path('users/<str:USERNAME>/', views.user, name='user-detail'),
     # path('users/<str:USERNAME>/profile', views.userProfile, name='user-profile'),
     

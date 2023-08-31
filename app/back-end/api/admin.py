@@ -8,7 +8,7 @@ class UserAdminConfig(UserAdmin):
   fieldsets = (
     (None, {'fields': ('username', 'password')}),
     ('Personal Information', {'fields': ('email', 'first_name', 'last_name')}),
-    ('Extra Fields', {'fields': ('role', 'phone', 'profile_picture')}),
+    ('Extra Fields', {'fields': ('role', 'phone', 'profile_picture', 'host_request_status')}),
     ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     ('Dates', {'fields': ('last_login', 'date_joined')}),
   )

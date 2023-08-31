@@ -21,6 +21,7 @@ const AuthContextProvider = ({children}) => {
   let [loading, setLoading] = useState(true)
 
   const updateToken = async () => {
+    console.log('updateToken')
     if (authTokens) {
       let response = await fetch('/api/token/refresh/', {
         method:'POST',
@@ -97,7 +98,7 @@ const AuthContextProvider = ({children}) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, login, logout }}>
+    <AuthContext.Provider value={{ authData, authTokens, login, logout }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

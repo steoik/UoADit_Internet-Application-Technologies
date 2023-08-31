@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 # from django.shortcuts import get_object_or_404
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -44,14 +45,30 @@ def users(request):
       last_name=data.get('last_name', ''),
       email=data.get('email', ''),
       phone=data.get('phone', ''),
+      host_request_status=data.get('host_request_status', '')
     )
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
   # Get all Users
-  # if request.method == 'GET':
-  #   users = User.objects.all()
-  #   serializer = UserSerializer(users, many=True)
-  #   return Response(serializer.data)
+  if request.method == 'GET':
+    users = CustomUser.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def host_request(request, USERNAME):
+  data = request.data
+  try:
+    user = CustomUser.objects.get(username=USERNAME)
+  except CustomUser.DoesNotExist:
+    return Response({'error': 'User not found.'})
+  if data.get('status') == 'approved':
+    user.role = 'host'
+    user.host_request_status  = 'approved'
+  elif data.get('status') == 'denied':
+    user.host_request_status  = 'denied'
+  user.save()
+  return Response({'message': 'Host request status updated successfully.'})
 
 # @api_view(['POST', 'GET', 'DELETE'])
 # def userProfile(request, USERNAME):

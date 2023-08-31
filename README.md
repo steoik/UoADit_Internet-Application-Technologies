@@ -64,6 +64,7 @@ listing{
 
   General Info
   
+    Title
     price (integer, in euro)
     payment (month/night)
     location

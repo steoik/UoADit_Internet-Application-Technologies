@@ -53,15 +53,25 @@ const Header = () => {
                 </button>
               </div>
             ) : (
-              // Check the authData and see if the User has a profile picture
+            <>
+              <div className='header__links'>
+              {/* {authData.role == 'host' && */}
+                <a href='#'>Καταχώρηση</a>
+              {/* } */}
+              {/* {authData.role == 'admin' && */}
+                <a href='/admin'>Διαχείρηση</a>
+              {/* } */}
+              </div>
               <div className='header__avatar'>
                 <img src={DefaultProfile} alt='Default_Profile'/>
                 <div className="avatar__dropdown">
+                  <p><span>Καλωσήρθες</span> <br></br> {authData.username}</p>
                   <a href="#">Προφίλ</a>
                   <a href="#">Μηνύματα</a>
                   <a href="#" onClick={handleLogOut}>Αποσύνεση</a>
                 </div>
               </div>
+            </>
             )}
           </div>
         </div>
