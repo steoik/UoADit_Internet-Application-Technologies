@@ -20,7 +20,7 @@ const Admin = () => {
       return 'error'
   }
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 2;
   const [totalItems, setTotalItems] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   let indexOfFirstItem = (currentPage-1) * itemsPerPage;

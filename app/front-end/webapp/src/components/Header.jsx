@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import './Header.css';
@@ -7,8 +7,8 @@ import DefaultProfile from '../assets/person_FILL0_wght300_GRAD0_opsz48.svg'
 
 const Header = () => {
   
-  const { authData, logout } = useContext(AuthContext);
-
+  const { avatar, authData, logout } = useContext(AuthContext);
+  
   const [signUpModal, setSignUpModal] = useState(false);
   const [logInModal, setLogInModal] = useState(false);
 
@@ -59,12 +59,12 @@ const Header = () => {
                 <a href='#'>Καταχώρηση</a>
               {/* } */}
               {/* {authData.role == 'admin' && */}
-                <a href='/admin'>Διαχείρηση</a>
+                <a href='/admin'>Διαχείριση</a>
               {/* } */}
               </div>
               <div className='header__avatar'>
-                {authData.avatar ? (
-                  <img src={URL.createObjectURL(authData.avatar)} alt='User_Avatar'/>
+                {avatar ? (
+                  <img src={avatar} alt='User_Avatar'/>
                 ) : (
                   <img src={DefaultProfile} alt='Default_Profile'/>
                 )}

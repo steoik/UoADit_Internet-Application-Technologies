@@ -85,6 +85,9 @@ def avatar(request, USERNAME):
       return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
     else:
       return Response(None, status=204)
+    
+    # image_data = open(user.profile_picture, mode='r').read()
+    # return HttpResponse(image_data, content_type="image/png")
   # Delete the User profile picture
 
 @api_view(['GET'])

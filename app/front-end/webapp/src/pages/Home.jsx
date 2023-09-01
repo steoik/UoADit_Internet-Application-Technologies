@@ -26,7 +26,7 @@ const Home = () => {
   
   const handleSearch = () => {
 
-    let link = '/search?'
+    let link = '/listings?'
     for (const key in searchForm)
       if (searchForm[key])
         link += `${key}=${searchForm[key]}&`

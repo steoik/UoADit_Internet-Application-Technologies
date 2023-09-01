@@ -1,10 +1,8 @@
 const API_URL = 'http://127.0.0.1:8000';
 
-let response;
-
 export const createUser = async (data) => {
   try {
-    response = await fetch(`${API_URL}/users/`, {
+    const response = await fetch(`${API_URL}/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -48,11 +46,8 @@ export const updateAvatar = async (user_name, profile_picture) => {
 
 export const getAvatar = async (user_name) => {
   try {
-    response = await fetch(`${API_URL}/users/${user_name}/avatar`, {
+    const response = await fetch(`${API_URL}/users/${user_name}/avatar`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
     })
     if (!response.ok)
       throw new Error('Failed to receive user Avatar.');
@@ -64,6 +59,7 @@ export const getAvatar = async (user_name) => {
   }
   catch (error) {
     console.error(error);
+    return null;
   }
   finally {
     // console.log(response);
@@ -72,7 +68,7 @@ export const getAvatar = async (user_name) => {
 
 export const getUsers = async () => {
   try {
-    response = await fetch(`${API_URL}/users/`, {
+    const response = await fetch(`${API_URL}/users/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +97,7 @@ export const hostRequest = async (username, status) => {
     const formData = new FormData()
     formData.append('status', status)
     
-    response = await fetch(`${API_URL}/users/${username}/host`, {
+    const response = await fetch(`${API_URL}/users/${username}/host`, {
       method: 'POST',
       body: formData
     })

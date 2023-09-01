@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom"
 import './App.css'
 
 import Home from './pages/Home'
-import Search from './pages/Search'
+import Listings from './pages/Listings'
 import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
 
@@ -39,8 +39,8 @@ function Views() {
           element: <Home />
         },
         {
-          path: "/search",
-          element: <Search />
+          path: "/listings",
+          element: <Listings />
         },
         {
           path: "/admin",
