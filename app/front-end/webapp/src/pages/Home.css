@@ -1,6 +1,5 @@
 .home {
   width: 100%;
-  /* height: 100vh; */
 }
 
 .home__slogan-search {
@@ -22,9 +21,7 @@
 }
 
 .home__searchBucket {
-  max-width: 1400px;
-  /* height: 100px; */
-  padding: 20px 20px 0 20px;
+  padding: 20px;
   background-color: white;
   border-radius: 30px;
   margin-bottom: 50px;
@@ -45,22 +42,43 @@
 .searchBucket__field {
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
+  align-items: center;
+  justify-content: center;
   width: 150px;
+  text-align: left;
+  padding: 5px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  margin: 0 2px;
+  position: relative;
+}
+
+.searchBucket__field:hover {
+  background-color: var(--color-white);
+}
+.searchBucket__field:hover input{
+  background-color: var(--color-white);
+}
+
+.searchBucket__field label {
+  /* background-color: red; */
+  display: block;
+  width: 100%;
+  padding-left: 5px;
   font-size: 25px;
-  padding-bottom: 20px;
 }
 
 .searchBucket__field input {
   width: 90%;
-  height: 60px;
-  margin: 5px 5px 0 0;
-  padding-left: 10px;
+  height: 40px;
+  margin: 5px 0 0 0;
+  padding-left: 5px;
   font-size: 20px;
   border: none;
 }
 
 .searchBucket__field input:focus {
+  background-color: white;
   border: 3px solid var(--color-orange);
   border-radius: 3px;
   outline: none;
@@ -75,22 +93,19 @@
 .home__searchBucket button {
   width: 180px;
   height: 50px;
-  margin: auto;
   font-size: 25px;
+  margin: 30px 0 10px 0;
   border: none;
   border-radius: 3px;
   text-align: center;
   letter-spacing: 1px;
   background-color: var(--color-orange);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .home__searchBucket button:hover {
   background-color: var(--color-orange-bright);
 }
-
-/* #priceFrom {
-  width: 90px;
-}
-#priceTo {  
-  width: 100px;
-} */

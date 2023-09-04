@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import SearchBucket from '../components/SearchBucket';
+
+import SearchIcon from '../assets/search_FILL0_wght300_GRAD200_opsz24.svg'
 import './Home.css'
 
 const Home = () => {
 
   const navigate = useNavigate();
-
+  
   const [searchForm, setSearchForm] = useState({
     location: '',
-    type: '',
-    payment: '',
-    priceFrom: '',
-    priceTo: '',
-    surface: '',
-    guests: ''
-  });  
-  
-  const handleSearchFormChange = (e) => {
-    setSearchForm({
-      ...searchForm,
-      [e.target.name]: e.target.value
-    });
-  };
+    type: 'Διαμέρισμα',
+    payment: 'Μήνας',
+    priceFrom: 0,
+    priceTo: 0,
+    surfaceFrom: 0,
+    surfaceTo: 0,
+  });
   
   const handleSearch = () => {
 
@@ -35,86 +31,26 @@ const Home = () => {
     navigate(link);
   }
   
-  return (
+  return (<>
     <div className="home">
       <section className="home__slogan-search">
         <h2>Το νέο σου σπίτι, μόνο λίγα κλικ μακριά!</h2>
         <div className="home__searchBucket">
-          <form>
-            <div id="location" className="searchBucket__field">
-              <label htmlFor="area">Περιοχή</label>
-              <input
-                type="text"
-                name="location"
-                placeholder="πχ. Γαλάτσι"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="type" className="searchBucket__field">
-              <label htmlFor="area">Τύπος</label>
-              <input
-                type="text"
-                name="type"
-                placeholder="πχ. Διαμέρισμα"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="payment" className="searchBucket__field">
-              <label htmlFor="area">Πληρωμή</label>
-              <input
-                type="text"
-                name="payment"
-                placeholder="Μήνας/Διανυκτέρευση"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="priceFrom" className="searchBucket__field">
-              <label htmlFor="area">Τιμή Από</label>
-              <input
-                type="text"
-                name="priceFrom"
-                placeholder="πχ. 100&euro;"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="priceTo" className="searchBucket__field">
-              <label htmlFor="area">Τιμή Μέχρι</label>
-              <input
-                type="text"
-                name="priceTo"
-                placeholder="πχ. 500&euro;"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="surface" className="searchBucket__field">
-              <label htmlFor="area">Εμβαδόν</label>
-              <input
-                type="text"
-                name="surface"
-                placeholder="πχ. 80τμ"
-                onChange={(e) => handleSearchFormChange(e)}
-                />
-            </div>
-            <div id="guests" className="searchBucket__field">
-              <label htmlFor="area">Επισκέπτες</label>
-              <input
-                type="text"
-                name="guests"
-                placeholder="πχ. 4 άτομα"
-                onChange={(e) => handleSearchFormChange(e)}
-              />
-            </div>
-          </form>
-            <div className="searchBucket__field">
-              <button onClick={handleSearch}>Αναζήτηση</button>
-            </div>
-
+          <SearchBucket
+            searchForm={searchForm}
+            setSearchForm={setSearchForm}
+            />
+          <button onClick={handleSearch}>
+            <p>Αναζήτηση</p>
+              <img src={SearchIcon} fill='red'></img>
+          </button>
         </div>
       </section>
+      
       <section className="home__otherSection">
       </section>
     </div>
-  );
+  </>);
 }
 
 export default Home

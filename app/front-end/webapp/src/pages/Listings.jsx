@@ -1,100 +1,67 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import SearchBucket from '../components/SearchBucket';
+
+import Close from '../assets/close_FILL0_wght500_GRAD200_opsz40.svg'
+import FilterIcon from '../assets/tune_FILL0_wght200_GRAD200_opsz24.svg'
+import SortIcon from '../assets/sort_FILL0_wght200_GRAD200_opsz24.svg'
+import './Listings.css';
+
 const Listings = () => {
-  
   const [searchParams] = useSearchParams();
-  const [searchFormData, setSearchFormData] = useState({
-    location: searchParams.get('location'),
-    type: searchParams.get('type'),
-    payment: searchParams.get('payment'),
-    priceFrom: searchParams.get('priceFrom'),
-    priceTo: searchParams.get('priceTo'),
-    surface: searchParams.get('surface'),
-    guests: searchParams.get('guests')
-  })
+  const [searchForm, setSearchForm] = useState({
+    location: searchParams.get('location') || '',
+    type: searchParams.get('type') || 'Διαμέρισμα',
+    payment: searchParams.get('payment') || 'Μήνας',
+    priceFrom: searchParams.get('priceFrom') || 0,
+    priceTo: searchParams.get('priceTo') || 0,
+    surfaceFrom: searchParams.get('surfaceFrom') || 0,
+    surfaceTo: searchParams.get('surfaceTo') || 0,
+  });
 
-  const handleSearchFormChange = (e) => {
-    setSearchForm({
-      ...searchForm,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [filtersModal, setFiltersModal] = useState(false)
 
-  useEffect(() => {
-    console.log(searchFormData);
-  }, [searchFormData]);
+  return (<>
 
-  return (
-    // <div>
-    //   {JSON.stringify(searchFormData)}
-    // </div>
-    <form>
-    <div id="location" className="searchBucket__field">
-      <label htmlFor="area">Περιοχή</label>
-      <input
-        type="text"
-        name="location"
-        placeholder="πχ. Γαλάτσι"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="type" className="searchBucket__field">
-      <label htmlFor="area">Τύπος</label>
-      <input
-        type="text"
-        name="type"
-        placeholder="πχ. Διαμέρισμα"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="payment" className="searchBucket__field">
-      <label htmlFor="area">Πληρωμή</label>
-      <input
-        type="text"
-        name="payment"
-        placeholder="Μήνας/Διανυκτέρευση"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="priceFrom" className="searchBucket__field">
-      <label htmlFor="area">Τιμή Από</label>
-      <input
-        type="text"
-        name="priceFrom"
-        placeholder="πχ. 100&euro;"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="priceTo" className="searchBucket__field">
-      <label htmlFor="area">Τιμή Μέχρι</label>
-      <input
-        type="text"
-        name="priceTo"
-        placeholder="πχ. 500&euro;"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="surface" className="searchBucket__field">
-      <label htmlFor="area">Εμβαδόν</label>
-      <input
-        type="text"
-        name="surface"
-        placeholder="πχ. 80τμ"
-        onChange={(e) => handleSearchFormChange(e)}
-        />
-    </div>
-    <div id="guests" className="searchBucket__field">
-      <label htmlFor="area">Επισκέπτες</label>
-      <input
-        type="text"
-        name="guests"
-        placeholder="πχ. 4 άτομα"
-        onChange={(e) => handleSearchFormChange(e)}
+    <div className='listings__filters'>
+      <SearchBucket
+      searchForm={searchForm}
+      setSearchForm={setSearchForm}
       />
+
+      <div className='filtersBtn__wrapper'>
+        <div className='filtersBtn__container'>
+          <button onClick={() => setFiltersModal(true)} id='filterBtn'>
+            <img src={FilterIcon}></img>
+            <p>Φίλτρα</p>
+          </button>
+        </div>
+        <div className='filtersBtn__container'>
+          <button className='sortBtn__container' id='sortBtn'>
+            <img src={SortIcon}></img>
+            <p>Ταξινόμηση</p>
+          </button>
+        </div>
+      </div>
+
+      { filtersModal && 
+        <div className='modal'>
+          <div onClick={() => setFiltersModal(false)} className="modal__overlay"></div>
+          <div className='modal__content'>
+            <button id='closeModalBtn' onClick={() => setFiltersModal(false)}>
+              <img src={Close} />
+            </button>
+            <h3>Φίλτρα</h3>
+
+            
+
+          </div>
+        </div>
+      }
     </div>
-    </form>
-  );
+
+  </>)
 }
 
 export default Listings;

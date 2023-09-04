@@ -83,12 +83,12 @@ const Header = () => {
 
       {(signUpModal || logInModal) && 
         <div className='modal'>
-            <div onClick={() => toggleModal('false')} className="modal__overlay"></div>
-            {signUpModal ? (
-              <SignUp toggleModal={toggleModal} />
-            ) : (
-              <LogIn toggleModal={toggleModal} />
-            )}
+          <div onClick={() => toggleModal('false')} className="modal__overlay"></div>
+          {signUpModal ? (
+            <SignUp toggleModal={toggleModal} />
+          ) : (
+            <LogIn toggleModal={toggleModal} />
+          )}
         </div>
       }
     </>

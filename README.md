@@ -64,46 +64,52 @@ listing{
 
   General Info
   
-    Title
-    price (integer, in euro)
-    payment (month/night)
-    location
-      Συνοικία < Πόλη < Νομός < Περιφέρεια
-      Neighborhood < City < Prefecture < Region
-    surface (in sq meters)
-    floor (basement, ground, 1/2/3...)
+    listing_id unique
+    Title string 50
+    price (integer, in euro) float
+    payment (month/night) string default month
+    location string 50
+    Region  Περιφέρεια
+    Prefecture  Νομός
+    City  Πόλη
+    Neighborhood  Συνοικία
+    street
+    street_number
+    postal_code
+    surface (in sq meters) integer
+    
+    floor (basement, ground, 1/2/3...) string
       υπόγειο, ισόγειο, 1/2/3...
-    type (διαμέρισμα, μεζονέτα, μονοκατοικία)
-    description
+    type (διαμέρισμα, μεζονέτα, μονοκατοικία) string
+    description textfield
 
     For month payment listings
 
-      minimum reservation period
-      starting price
-      extra price per guest
-      maximum guests
+      minimum reservation period  integer
+      starting price  float
+      extra price per guest float
+      maximum guests  integer
 
 
-  Photos
-  Host info
+  Photos  array of 8 imagefields
+  Host CustomUser
 
   Map
 
-    address
-    long
+    long  
     lat
 
 
-  Space Info
+  Space Info  integer
 
-    beds
+    beds  
     bedrooms
     kitchens
     bathrooms
     living room
 
   
-  Provisions (Παροχές)
+  Provisions (Παροχές)  boolean
 
     Wifi
     heating
@@ -112,7 +118,7 @@ listing{
     parking
     elevator
 
-  Rules
+  Rules boolean
 
     smoking
     pets
@@ -121,6 +127,6 @@ listing{
 
   Ratings
 
-    number of ratings
-    average rating
+    number of ratings integer
+    average rating  float
 }
