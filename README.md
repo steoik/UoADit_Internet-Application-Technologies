@@ -24,6 +24,7 @@ How to install
     npm install react-router-dom
     npm install axios
     npm install jwt-decode
+    npm install google-maps-react
 
 How to run
   

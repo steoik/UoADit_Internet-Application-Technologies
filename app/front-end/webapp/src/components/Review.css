@@ -1,0 +1,29 @@
+.review img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.review_userInfo {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+}
+.review_username-date {
+  margin-left: 15px;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+}
+.review__username {
+  font-size: 2em;
+}
+.review__date {
+  font-size: 25px;
+}
+
+.review__body {
+  margin: 15px 0;
+  font-size: 25px;
+}

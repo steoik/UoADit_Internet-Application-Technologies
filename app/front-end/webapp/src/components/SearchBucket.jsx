@@ -16,7 +16,7 @@ const SearchBucket = ({ searchForm, setSearchForm }) => {
 
   const listing_types = [
     'Διαμέρισμα',
-    'Κτίριο',
+    'Μονοκατοικία',
     'Στούντιο',
     'Γκαρσονιέρα',
   ]

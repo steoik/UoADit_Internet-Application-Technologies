@@ -11,7 +11,7 @@
 
 .search-bucket__field {
   /* padding: 5px; */
-  margin: 0 5px;
+  margin: 5px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -43,7 +43,7 @@
   font-size: 20px;
   outline: none;
   border: 3px solid transparent;
-  background-color: var(--color-white);;
+  /* background-color: var(--color-white); */
 }
 
 .search-bucket__field input:focus {
@@ -62,7 +62,7 @@
   background-color: white;
   padding: 5px;
   border-radius: 5px;
-  border: 3px solid #ddd;
+  border: 3px solid var(--color-orange);
 }
 
 .field__dropdown:hover {

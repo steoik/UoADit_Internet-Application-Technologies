@@ -42,7 +42,7 @@ const Home = () => {
             />
           <button onClick={handleSearch}>
             <p>Αναζήτηση</p>
-              <img src={SearchIcon} fill='red'></img>
+              <img src={SearchIcon}></img>
           </button>
         </div>
       </section>

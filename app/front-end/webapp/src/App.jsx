@@ -3,16 +3,21 @@ import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom"
 
 import './App.css'
 
+import Header from './components/Header'
+import Footer from './components/Footer'
+
 import Home from './pages/Home'
+import Listing from './pages/Listing'
 import Listings from './pages/Listings'
 import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
 
+
+// Remove on final push
 import UserList from './pages/UsersList'
 import User from './pages/User'
+//
 
-import Header from './components/Header'
-import Footer from './components/Footer'
 
 import AuthContextProvider from "./contexts/AuthContext";
 import { AuthContext } from "./contexts/AuthContext";
@@ -41,6 +46,10 @@ function Views() {
         {
           path: "/listings",
           element: <Listings />
+        },
+        {
+          path: "/listing/:listing_id",
+          element: <Listing />
         },
         {
           path: "/admin",

@@ -11,15 +11,13 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-left: 5px;
+  gap: 0px 10px;
 }
-
 .filtersBtn__container {
-  height: 60px;
-  /* margin-left: 10px; */
-  margin: 10px 0;
 }
-
 .filtersBtn__container button {
+  margin: 5px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,7 +36,7 @@
 }
 
 #filterBtn {
-  margin-left: 15px;
+  /* margin-left: 15px; */
   border: none;
   background-color: var(--color-orange);
   border: 5px solid var(--color-orange);
@@ -50,7 +48,6 @@
 }
 
 #sortBtn {
-  margin-left: 20px;
   border: 5px solid var(--color-orange);
   background-color: white;
 }
@@ -111,5 +108,32 @@ button#closeModalBtn:hover {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+.listings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.listings__grid__container {
+  background-color: white;
+}
 
+.listings__grid {
+  width: 1400px;
+  margin: 50px auto;
+
+  display: grid;
+  /* grid-template-columns: auto auto auto auto; */
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-around;
+
+  gap: 50px
+}
+
+.listings__pagination__wrapper {
+  width: 1400px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
