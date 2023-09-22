@@ -62,17 +62,19 @@ const Header = () => {
                 <a href='/admin'>Διαχείριση</a>
               {/* } */}
               </div>
-              <div className='header__avatar'>
-                {avatar ? (
-                  <img src={avatar} alt='User_Avatar'/>
-                ) : (
-                  <img src={DefaultProfile} alt='Default_Profile'/>
-                )}
-                <div className="avatar__dropdown">
-                  <p><span>Καλωσήρθες</span> <br></br> {authData.username}</p>
-                  <a href="#">Προφίλ</a>
-                  <a href="#">Μηνύματα</a>
-                  <a href="#" onClick={handleLogOut}>Αποσύνεση</a>
+              <div className='header__avatar__wrapper'>
+                <div className='header__avatar'>
+                  {avatar ? (
+                    <img src={avatar} alt='User_Avatar'/>
+                  ) : (
+                    <img src={DefaultProfile} alt='Default_Profile'/>
+                  )}
+                  <div className="avatar__dropdown">
+                    <p><span>Καλωσήρθες</span> <br></br> {authData.username}</p>
+                    <a href="#">Προφίλ</a>
+                    <a href="#">Μηνύματα</a>
+                    <a href="#" onClick={handleLogOut}>Αποσύνεση</a>
+                  </div>
                 </div>
               </div>
             </>

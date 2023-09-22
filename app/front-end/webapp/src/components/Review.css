@@ -4,7 +4,6 @@
   object-fit: cover;
   border-radius: 50%;
 }
-
 .review_userInfo {
   display: flex;
   align-content: center;
@@ -22,7 +21,6 @@
 .review__date {
   font-size: 25px;
 }
-
 .review__body {
   margin: 15px 0;
   font-size: 25px;

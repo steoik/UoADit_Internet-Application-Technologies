@@ -82,6 +82,16 @@
   color: var(--color-white);
 }
 
+.header__avatar__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.header__avatar {
+  width: 80px;
+  height: 80px;
+}
+
 .header__avatar img {
   width: 80px;
   height: 80px;
@@ -105,6 +115,10 @@
   align-items: center;
 }
 
+.modal {
+  z-index: 1;
+}
+
 .modal__overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -123,6 +137,8 @@
   border: 3px solid var(--color-brown);
   flex-direction: column;
   align-items: left;
+
+  z-index: 1;
 }
 
 .avatar__dropdown p {
@@ -149,6 +165,5 @@
 
 .avatar__dropdown a:hover {
   background-color: var(--color-yellow);
-
 }
 

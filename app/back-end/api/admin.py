@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin
+from .models import Listing, ListingImage
 
 class UserAdminConfig(UserAdmin):
   ordering = ('role',)
@@ -14,3 +15,6 @@ class UserAdminConfig(UserAdmin):
   )
 
 admin.site.register(CustomUser, UserAdminConfig)
+
+admin.site.register(Listing)
+admin.site.register(ListingImage)

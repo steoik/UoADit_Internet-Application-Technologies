@@ -1,4 +1,4 @@
-import './Review'
+import './Review.css'
 
 const Review = (props) => {
 

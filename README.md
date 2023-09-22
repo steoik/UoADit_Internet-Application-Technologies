@@ -18,7 +18,8 @@ How to install
     pip install django-cors-headers         // Solves CORS problem
     pip install Pillow                      // Handles profile pictures
     pip install djangorestframework-simplejwt
- 
+    pip install django-filter
+
   ReactJS app
     npm install                             // Install ReactJS packages (in: app/front-end/webapp/)
     npm install react-router-dom
@@ -58,7 +59,10 @@ Resources Used
 
 
 
-
+Χώρα            Ελλάδα
+Περιφέρεια      Αττικής
+Νομός           
+Δήμος
 
 
 listing{
@@ -69,20 +73,18 @@ listing{
     Title string 50
     price (integer, in euro) float
     payment (month/night) string default month
-    location string 50
-    Region  Περιφέρεια
-    Prefecture  Νομός
-    City  Πόλη
-    Neighborhood  Συνοικία
-    street
-    street_number
-    postal_code
+
+    Location string 50 default ''
+
+    street  string 50
+    street_number integer
+    postal_code integer
     surface (in sq meters) integer
     
     floor (basement, ground, 1/2/3...) string
       υπόγειο, ισόγειο, 1/2/3...
     type (διαμέρισμα, μεζονέτα, μονοκατοικία) string
-    description textfield
+    description textfield 500 
 
     For month payment listings
 
