@@ -78,11 +78,6 @@ const SearchBucket = ({ searchForm, setSearchForm }) => {
   const [dropdown_price, set_dropdown_price] = useState(false)
   const [dropdown_surface, set_dropdown_surface] = useState(false)
   
-  // const handleClickOutside = (event) => {
-  //   if (dropdownRef_location.current && !dropdownRef_location.current.contains(event.target))
-  //     set_dropdown_location(false)
-  // };
-
   useEffect(() => {
     const closeDropdowns = (e) => {
       if ( dropdownRef_location.current && !dropdownRef_location.current.contains(e.target) )

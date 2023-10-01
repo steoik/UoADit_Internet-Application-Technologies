@@ -60,14 +60,14 @@ class Listing(models.Model):
   listing_id = models.AutoField(primary_key=True, unique=True)
   title = models.CharField(max_length=50)
   price = models.FloatField()
-  payment = models.CharField(max_length=10, default='month')  # Month / Night
+  payment = models.CharField(max_length=25, default='month')  # Month / Night
   location = models.CharField(max_length=50, default='')
   street = models.CharField(max_length=50)
   street_number = models.IntegerField()
   postal_code = models.IntegerField()
   surface = models.IntegerField()  # In sq meters
-  floor = models.CharField(max_length=20)  # Basement, ground, 1/2/3...
-  type = models.CharField(max_length=20)  # διαμέρισμα, μεζονέτα, μονοκατοικία
+  floor = models.CharField(max_length=25)  # Basement, ground, 1/2/3...
+  type = models.CharField(max_length=25)  # διαμέρισμα, μεζονέτα, μονοκατοικία
   description = models.TextField(max_length=500)
   # Host
   host = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -95,6 +95,9 @@ class Listing(models.Model):
   smoking = models.BooleanField(default=False)
   pets = models.BooleanField(default=False)
   parties = models.BooleanField(default=False)
+  # Other
+  rating = models.FloatField(default=0.0)
+  reviews = models.IntegerField(default=0, validators=[MinValueValidator(0)])
 
   def __str__(self):
       return self.title

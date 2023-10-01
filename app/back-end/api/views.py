@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import FileResponse
 
+from rest_framework import status
 import django_filters
 from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -115,12 +116,12 @@ def listing(request):
 
 class ListingFilter(django_filters.FilterSet):
     
-  price_min = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
-  price_max = django_filters.NumberFilter(field_name='price', lookup_expr='lte')
+  priceFrom = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
+  priceTo = django_filters.NumberFilter(field_name='price', lookup_expr='lte')
   payment = django_filters.CharFilter(field_name='payment', lookup_expr='iexact')
   location = django_filters.CharFilter(field_name='location', lookup_expr='iexact')
-  surface_min = django_filters.NumberFilter(field_name='surface', lookup_expr='gte')
-  surface_max = django_filters.NumberFilter(field_name='surface', lookup_expr='lte')
+  surfaceFrom = django_filters.NumberFilter(field_name='surface', lookup_expr='gte')
+  surfaceTo = django_filters.NumberFilter(field_name='surface', lookup_expr='lte')
   floor = django_filters.CharFilter(field_name='floor', lookup_expr='iexact')
   type = django_filters.CharFilter(field_name='type', lookup_expr='iexact')
 
@@ -160,20 +161,36 @@ class ListingDetailView(RetrieveAPIView):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class ListingImageCreateView(generics.CreateAPIView):
-    queryset = ListingImage.objects.all()
-    serializer_class = ListingImageSerializer
-    parser_classes = (FileUploadParser,)
+# class ListingImageCreateView(generics.CreateAPIView):
+#     queryset = ListingImage.objects.all()
+#     serializer_class = ListingImageSerializer
+#     parser_classes = (FileUploadParser,)
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+#     def post(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# def ListingImage(request, listing_id):
+#   # Get the Listing object
+#   listing = Listing.objects.get(pk=listing_id)
+#   image = request.FILES.get('image')
+#   primary_image = request.data.get('primary_image', False)
+#   if image:
+#     # Create a new ListingImage instance
+#     listing_image = ListingImage(listing=listing, image=image, primary_image=primary_image)
+#     listing_image.save()
+#     return Response({'message': 'Image uploaded successfully'}, status=status.HTTP_201_CREATED)
+#   else:
+#       return Response({'message': 'Image not provided'}, status=status.HTTP_400_BAD_REQUEST)
+  
+
+
 
 # class ListingImageListView(generics.ListAPIView):
 #   serializer_class = ListingImageSerializer
@@ -200,3 +217,48 @@ class ListingImageCreateView(generics.CreateAPIView):
 #       serializer.save()
 #       return Response({'Listing image created successfully!'})
 #     return Response(serializer.errors, status=400)
+
+
+
+class ListingImageCreateView(generics.CreateAPIView):
+  def post(self, request, listing_id):
+    try:
+      # Get the Listing object with the provided listing_id
+      listing = Listing.objects.get(pk=listing_id)
+    except Listing.DoesNotExist:
+      return Response(
+        {'detail': 'Listing not found'},
+        status=status.HTTP_404_NOT_FOUND
+      )
+    
+    serializer = ListingImageSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save(listing=listing)
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+class ListingImageListView(generics.ListAPIView):
+  def get(self, request, listing_id):
+    try:
+      listing = Listing.objects.get(pk=listing_id)
+    except Listing.DoesNotExist:
+      return Response(
+          {'detail': 'Listing not found'},
+          status=status.HTTP_404_NOT_FOUND
+      )
+    images = ListingImage.objects.filter(listing=listing)
+    image_data = [{'url': image.image.url, 'primary_image': image.primary_image} for image in images]
+    return Response(image_data, status=status.HTTP_200_OK)
+    
+
+class ListingImagePrimaryView(generics.ListAPIView):
+  def get(self, request, listing_id):
+    try:
+      listing = Listing.objects.get(pk=listing_id)
+    except Listing.DoesNotExist:
+      return Response(
+          {'detail': 'Listing not found'},
+          status=status.HTTP_404_NOT_FOUND
+      )
+    primary_image = ListingImage.objects.filter(listing=listing, primary_image=True).first()
+    return Response({'url': primary_image.image.url}, status=status.HTTP_200_OK)

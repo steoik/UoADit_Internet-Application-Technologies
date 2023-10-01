@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ListingFilterView, ListingDetailView, ListingImageCreateView
+from .views import MyTokenObtainPairView, ListingFilterView, ListingDetailView, ListingImageCreateView, ListingImageListView, ListingImagePrimaryView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework_simplejwt.views import (
   # TokenObtainPairView,
@@ -20,9 +22,12 @@ urlpatterns = [
   
   path('listing/', views.listing, name='listing'),
   path('listing/detail/<int:listing_id>', ListingDetailView.as_view(), name='listing'),
-  path('listings/filter/', ListingFilterView.as_view(), name='listings'),
+  path('listing/filter', ListingFilterView.as_view(), name='listings'),
 
-  path('listing_image/', ListingImageCreateView.as_view(), name='listing_image'),
-  # path('listing_images/<int:listing_id>/', views.ListingImageListView.as_view(), name='listing-image-list')
-
+  path('listing/image/create/<int:listing_id>', ListingImageCreateView.as_view(), name='listing_image'),
+  path('listing/image/list/<int:listing_id>', ListingImageListView.as_view(), name='listing_image'),
+  path('listing/image/primary/<int:listing_id>', ListingImagePrimaryView.as_view(), name='listing_image'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -98,7 +98,7 @@ const SignUp = (props) => {
       <div className='signUp__body'>
         {(tab >= 0 && tab <= 2) &&
           <>
-            <h2>Καλωσήρθες στο <span>Website</span>!</h2>
+            <h2>Καλωσήρθες στον <span>Σπιτονοικοκύρη!</span></h2>
             <small>Ακολούθησε την φόρμα εγγραφής για να δημιουργήσεις τον δικό σου λογαριασμό!</small>
           </>
         }

@@ -63,6 +63,7 @@
   padding: 5px;
   border-radius: 5px;
   border: 3px solid var(--color-orange);
+  z-index: 1;
 }
 
 .field__dropdown:hover {

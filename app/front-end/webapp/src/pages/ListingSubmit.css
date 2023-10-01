@@ -1,0 +1,108 @@
+.listingSubmit {
+  margin: 25px 0;
+  display: flex;
+  justify-content: center;
+}
+.listingSubmit__form {
+  width: 80%;
+}
+.listingSubmit__form h2{
+  margin: 25px 0 15px 0;
+  font-size: 30px;
+}
+.listingSubmit__form textarea {
+  width: 100%;
+  font-size: 25px;
+  resize: none;
+  padding: 10px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~ Pictures ~~~~~~~~~~~~~~~~ */
+.listingSubmit__pictures__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.listingSubmit__pictures {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-direction: row;
+}
+.listingSubmit__pictures__add {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-orange);
+}
+.listingSubmit__pictures__add input {
+  font-size: 25px;
+}
+.listingSubmit__pictures__add-primary {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.listingSubmit__pictures__add-images {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~ General ~~~~~~~~~~~~~~~~ */
+.listingSubmit__field {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.listingSubmit__field input{
+  height: 30px;
+  font-size: 15px;
+  padding-left: 10px;
+}
+.listingSubmit__field label{
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ Map ~~~~~~~~~~~~~ */
+.listingSubmit__map-wrapper {
+  width: 100%;
+  height: 500px;
+  margin-top: 15px;
+  position: relative;
+}
+.listingSubmit__map-coords input{
+  height: 30px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+.listingSubmit__map-coords label{
+  font-size: 20px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ Space ~~~~~~~~~~~~~ */
+.listingSubmit__space {
+  display: flex;
+  flex-direction: column;
+}
+
+.listingSubmit__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.listingSubmit__grid-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.listingSubmit__grid-field input{
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+.listingSubmit__grid-field label{
+  font-size: 20px;
+}

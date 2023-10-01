@@ -35,7 +35,7 @@ const Header = () => {
         <div className='header__content'>
           <div className='header__logo'>
             <a href='/'>
-              <h1>Website</h1>
+              <h1>Σπιτονοικοκύρης</h1>
             </a>
           </div>
           <div className='header__navbar'>
@@ -56,7 +56,7 @@ const Header = () => {
             <>
               <div className='header__links'>
               {/* {authData.role == 'host' && */}
-                <a href='#'>Καταχώρηση</a>
+                <a href='/listing/submit'>Καταχώρηση</a>
               {/* } */}
               {/* {authData.role == 'admin' && */}
                 <a href='/admin'>Διαχείριση</a>

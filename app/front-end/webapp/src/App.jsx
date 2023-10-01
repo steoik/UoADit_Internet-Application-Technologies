@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Listing from './pages/Listing'
 import Listings from './pages/Listings'
+import ListingSubmit from "./pages/ListingSubmit";
 import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
 
@@ -50,6 +51,10 @@ function Views() {
         {
           path: "/listing/:listing_id",
           element: <Listing />
+        },
+        {
+          path: "/listing/submit",
+          element: <ListingSubmit />
         },
         {
           path: "/admin",

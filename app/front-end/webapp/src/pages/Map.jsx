@@ -1,14 +1,27 @@
 // Map.js
-import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { useState } from 'react';
 
 function MapContainer(props) {
 
-  const { lat, lng } = props;
+  const [coords, setCoords] = useState({ lat: props.lat, lng: props.lng });
 
   const mapStyles = {
     width: '100%',
     height: '100%',
+  };
+
+  const onMarkerDragend = (t, map, coords) => {
+    setCoords({
+      lat: coords.latLng.lat(),
+      lng: coords.latLng.lng(),
+    });
+    if (props.onMarkerDrag) {
+      props.onMarkerDrag({
+        lat: coords.latLng.lat(),
+        lng: coords.latLng.lng(),
+      });
+    }
   };
 
   return (
@@ -16,19 +29,23 @@ function MapContainer(props) {
       google={props.google}
       zoom={18}
       style={mapStyles}
-      initialCenter={{
-        lat: lat,
-        lng: lng,
-      }}
+      initialCenter={coords}
       >
-      <Marker
-        position={{
-          lat: lat,
-          lng: lng,
-        }}
-        title="Marker"
-        name="Marker"
-      />
+      {props.onMarkerDrag ? (
+        <Marker
+          position={coords}
+          title="Marker"
+          name="Marker"
+          draggable={true}
+          onDragend={onMarkerDragend}
+        />
+        ) :
+        <Marker
+          position={coords}
+          title="Marker"
+          name="Marker"
+        />
+      }
     </Map>
   );
 }
