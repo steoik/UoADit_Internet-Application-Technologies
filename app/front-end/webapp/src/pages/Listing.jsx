@@ -7,8 +7,9 @@ import { DateRangePicker } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 
-import MapContainer from './Map';
+import MapContainer from '../components/Map';
 import Review from '../components/Review'
+import UserCard from "../components/UserCard"
 
 import { getListing, getListingImages } from '../api/listingAPI';
 import {translate_type_EN_GR, translate_payment_EN_GR} from '../utils/translate'
@@ -26,6 +27,9 @@ const Listing = () => {
   const [listingImages, setListingImages] = useState([])
   const [listingPrimaryImage, setListingPrimaryImage] = useState('')
 
+  useEffect(() => {
+    console.count(listing)
+  }, [listing])
 
   const fetchListing = async () => {
     try {
@@ -90,7 +94,6 @@ const Listing = () => {
     });
   };
 
-
   const [guests, setGuests] = useState(1);
   const decreaseGuests = () => {
     if (guests > 1) {
@@ -102,12 +105,9 @@ const Listing = () => {
       setGuests((guests) => guests + 1);
   };
 
-  const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus a est ornare mattis. Ut feugiat felis at bibendum porta. Curabitur tincidunt elementum tellus et auctor. Aenean accumsan libero libero, sit amet tristique eros sodales non. Donec porttitor elit ac porttitor gravida. Fusce mattis tincidunt lorem, sit amet porttitor. '
-
   const handleReservation = () => {
   }
 
-  
   const handleImageClick = (imageUrl, index) => {
     setListingImages(prevImages => {
       const updatedImages = [...prevImages];
@@ -292,25 +292,33 @@ const Listing = () => {
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Τι εκπληκτικό μέρος - γαλήνιο και όμορφο, ιδανικό για οικογένειες να μείνουν σε ένα μέρος με όλα τα μελετημένα και άνετα. Υπέροχη θέα, με τόσες πολλές περιοχές χαλάρωσης και σαλόνια. Θα μπορούσα να είχα μείνει για εβδομάδες!"
+                  }
+                  avatar={NoImage}
+                  />
+                <Review
+                  username={'Username'}
+                  date_created={'Monrth Year'}
+                  body={
+                    "Είχαμε μια υπέροχη διαμονή. Η ευελιξία του Τάσσου είναι καταπληκτική. Κάνει ό, τι μπορεί για να κάνει τη διαμονή όσο πιο άνετη γίνεται. Ένα μεγάλο ευχαριστώ για όλα. Θα επιστρέψουμε, αυτό είναι σίγουρο!"
+                  }
                   avatar={NoImage}
                 />
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Τέλειοι οικοδεσπότες. Τέλειο μέρος. Ήταν υπέροχα!"
+                  }
                   avatar={NoImage}
                 />
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
-                  avatar={NoImage}
-                />
-                <Review
-                  username={'Username'}
-                  date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Είμαστε πολύ ευχαριστημένοι με τη διαμονή!"
+                  }
                   avatar={NoImage}
                 />
               </div>
@@ -322,25 +330,25 @@ const Listing = () => {
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Υπέροχο μέρος. Ο οικοδεσπότης ανταποκρίνεται πολύ. Μας βοήθησε να έχουμε μια εύκολη και πρόωρη άφιξη."
+                  }
                   avatar={NoImage}
                 />
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Τέλεια!"
+                  }
                   avatar={NoImage}
                 />
                 <Review
                   username={'Username'}
                   date_created={'Monrth Year'}
-                  body={lorem}
-                  avatar={NoImage}
-                />
-                <Review
-                  username={'Username'}
-                  date_created={'Monrth Year'}
-                  body={lorem}
+                  body={
+                    "Τι υπέροχη διαμονή σε αυτό το όμορφο ρετιρέ στην Αθήνα! Η θέα είναι μαγευτική. Η εξυπηρέτηση ήταν τέλεια! Ευχαριστούμε που μας δεχτήκατε."
+                  }
                   avatar={NoImage}
                 />
               </div>

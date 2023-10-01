@@ -5,6 +5,8 @@ import './Header.css';
 import { AuthContext } from "../contexts/AuthContext";
 import DefaultProfile from '../assets/person_FILL0_wght300_GRAD0_opsz48.svg'
 
+import Logo from '../assets/Logo-plain.png'
+
 const Header = () => {
   
   const { avatar, authData, logout } = useContext(AuthContext);
@@ -35,6 +37,7 @@ const Header = () => {
         <div className='header__content'>
           <div className='header__logo'>
             <a href='/'>
+              <img src={Logo}></img>
               <h1>Σπιτονοικοκύρης</h1>
             </a>
           </div>
@@ -55,12 +58,12 @@ const Header = () => {
             ) : (
             <>
               <div className='header__links'>
-              {/* {authData.role == 'host' && */}
+              {authData.role == 'host' &&
                 <a href='/listing/submit'>Καταχώρηση</a>
-              {/* } */}
-              {/* {authData.role == 'admin' && */}
+              }
+              {authData.role == 'admin' &&
                 <a href='/admin'>Διαχείριση</a>
-              {/* } */}
+              }
               </div>
               <div className='header__avatar__wrapper'>
                 <div className='header__avatar'>
@@ -71,7 +74,7 @@ const Header = () => {
                   )}
                   <div className="avatar__dropdown">
                     <p><span>Καλωσήρθες</span> <br></br> {authData.username}</p>
-                    <a href="#">Προφίλ</a>
+                    <a href={`/profile/${authData.username}`}>Προφίλ</a>
                     <a href="#">Μηνύματα</a>
                     <a href="#" onClick={handleLogOut}>Αποσύνεση</a>
                   </div>

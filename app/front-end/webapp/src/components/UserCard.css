@@ -1,0 +1,43 @@
+.userCard {
+  width: 600px;
+  height: 400px;
+  border-radius: 25px;
+  padding: 25px;
+  background-color: var(--color-yellow);
+  border: 4px solid var(--color-brown);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.userCard__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userCard__user img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--color-brown);
+  background-color: var(--color-white);
+}
+.userCard__user .userCard__role {
+  margin-top: 15px;
+  font-size: 30px;
+}
+
+
+.userCard__info {
+  border-left: 5px solid var(--color-orange);;
+  margin-left: 25px;
+  padding-left: 25px;
+}
+.userCard__info .userCard__username {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+.userCard__info .userCard__date_joined {
+  font-size: 25px;
+}

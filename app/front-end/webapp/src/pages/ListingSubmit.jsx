@@ -1,48 +1,59 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
+import { AuthContext } from "../contexts/AuthContext";
+import { createListing, createListingImage } from "../api/listingAPI";
+import searchDimoi from '../data/dimoiAttikis';
+import MapContainer from '../components/Map';
 
 import './ListingSubmit.css'
-import MapContainer from './Map';
+import { useNavigate } from "react-router-dom";
 
 const ListingSubmit = () => {
 
   const API_URL = 'http://127.0.0.1:8000';
+  const { authData } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const [listingData, setListingData] = useState({
     title: '',
-    price: '',
+    price: '0',
     payment: '',
     location: '',
     street: '',
-    street_number: '',
-    postal_code: '',
-    surface: '',
+    street_number: '0',
+    postal_code: '0',
+    surface: '0',
     floor: '',
     type: '',
     description: '',
 
-    minimum_reservation_period: '',
-    extra_price_per_guest: '',
-    maximum_guests: '',
+    host: authData.username,
 
-    lng: '',
-    lat: '',
+    minimum_reservation_period: '0',
+    extra_price_per_guest: '0',
+    maximum_guests: '0',
 
-    beds: '',
-    bedrooms: '',
-    kitchens: '',
-    bathrooms: '',
-    living_room: '',
+    lng: '37.97207076984488',
+    lat: '23.72695505619049',
 
-    wifi: '',
-    heating: '',
-    cooling: '',
-    television: '',
-    parking: '',
-    elevator: '',
+    beds: '0',
+    bedrooms: '0',
+    kitchens: '0',
+    bathrooms: '0',
+    living_room: '0',
 
-    smoking: '',
-    pets: '',
-    parties: '',
+    wifi: 'false',
+    heating: 'false',
+    cooling: 'false',
+    television: 'false',
+    parking: 'false',
+    elevator: 'false',
+
+    smoking: 'false',
+    pets: 'false',
+    parties: 'false',
+
+    rating: '0',
+    reviews: '0',
   })
   const [listingImages, setListingImages] = useState([])
   const [listingPrimaryImage, setListingPrimaryImage] = useState('')
@@ -51,7 +62,7 @@ const ListingSubmit = () => {
     if (e.target.type === 'checkbox') {
       setListingData({
         ...listingData,
-        [e.target.name]: e.target.checked ? 'true' : ''
+        [e.target.name]: e.target.checked ? 'true' : 'false'
       });
     } else {
       setListingData({
@@ -60,21 +71,15 @@ const ListingSubmit = () => {
       });
     }
   };
-
   const handleImageUpload = (e) => {
     if (listingImages.length + 1 <= 8) {
-      const files = Array.from(e.target.files);
-      const imageUrls = files.map((file) => URL.createObjectURL(file));
-      setListingImages([...listingImages, ...imageUrls]);
+      setListingImages((listingImages) => [...listingImages, e.target.files[0]]);
     }
   };
   const handlePrimaryImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setListingPrimaryImage(imageUrl);
-    }
+    setListingPrimaryImage(e.target.files[0]);
   };
+
 
   const handleMarkerDrag = (newCoords) => {
     setListingData({
@@ -83,7 +88,6 @@ const ListingSubmit = () => {
       lng: newCoords.lng,
     });
   };
-
   const parseBoolean = (value) => {
     if (value == 'true')
       return true
@@ -91,12 +95,65 @@ const ListingSubmit = () => {
       return false
   }
 
+  const handleListingSubmit = async () => {
+    event.preventDefault();
+    const listing_id = await createListing(listingData);
+    await createListingImage(listing_id, listingPrimaryImage, 'True')
+    for (const image of listingImages) {
+      await createListingImage(listing_id, image, 'False');
+    }
+    navigate(`/listing/${listing_id}`)
+  }
+  // ~~~~~~~~~~~~~~~ Search Location ~~~~~~~~~~~~~~
+  const [searchLocation, setSearchLocation] = useState('');
+  const [searchLocationResults, setSearchLocationResults] = useState([]);
   useEffect(() => {
-    console.log(listingData)
-  }, [listingData])
+    const timeoutId = setTimeout(() => {
+      if (searchLocation !== '') {
+        setSearchLocationResults(searchDimoi(searchLocation));
+      } else {
+        setSearchLocationResults([]);
+      }
+    }, 0);
+    
+    return () => clearTimeout(timeoutId);
+  }, [searchLocation]);
+  const handleSearchFormChange = (e) => {
+    setListingData({
+      ...listingData,
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.name === 'location') setSearchLocation(e.target.value);
+  };
+  // ~~~~~~~~~~~~~~~ Dropdown Menus ~~~~~~~~~~~~~~~
+  const listing_types = [
+    'Διαμέρισμα',
+    'Μονοκατοικία',
+    'Στούντιο',
+    'Μεζονέτα',
+  ]
+  const listing_payments = [
+    'Μήνας',
+    'Διανυκτέρευση',
+  ]
+  const dropdownRef_location = useRef(null);
+  const dropdownRef_type = useRef(null);
+  const dropdownRef_payment = useRef(null);
+  const [dropdown_location, set_dropdown_location] = useState(false)
+  const [dropdown_type, set_dropdown_type] = useState(false)
+  const [dropdown_payment, set_dropdown_payment] = useState(false)
   useEffect(() => {
-    console.log(listingImages)
-  }, [listingImages])
+    const closeDropdowns = (e) => {
+      if ( dropdownRef_location.current && !dropdownRef_location.current.contains(e.target) )
+        set_dropdown_location(false);
+      if ( dropdownRef_type.current && !dropdownRef_type.current.contains(e.target) )
+        set_dropdown_type(false);
+      if ( dropdownRef_payment.current && !dropdownRef_payment.current.contains(e.target) )
+        set_dropdown_payment(false);
+    }
+    document.addEventListener('mousedown', closeDropdowns);
+    return () => document.removeEventListener('mousedown', closeDropdowns);
+  }, []);
 
   return (
     <div className="listingSubmit">
@@ -117,27 +174,31 @@ const ListingSubmit = () => {
             <div className="listingSubmit__pictures">
               
               <div className="picture__foccused">
-                <img
-                  src={listingPrimaryImage}
-                  onClick={() => {
-                    setListingPrimaryImage('')
-                  }}
-                />
+                {listingPrimaryImage !== '' &&
+                  <img
+                    src={URL.createObjectURL(listingPrimaryImage)}
+                    onClick={() => {
+                      setListingPrimaryImage('')
+                    }}
+                  />
+                }
               </div>
 
               <div className="picture__grid">
-                {listingImages.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image} 
-                    alt={`Listing_Image_${index}`}
-                    onClick={() => {
-                      const updatedImages = [...listingImages];
-                      updatedImages.splice(index, 1);
-                      setListingImages(updatedImages);
-                    }}
-                  />
-                ))}
+                {listingImages.length !== 0 && (
+                  listingImages.map((image, index) => (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(image)} 
+                      alt={`Listing_Image_${index}`}
+                      onClick={() => {
+                        const updatedImages = [...listingImages];
+                        updatedImages.splice(index, 1);
+                        setListingImages(updatedImages);
+                      }}
+                    />
+                  ))         
+                )}
               </div>
             </div>
             <div className="listingSubmit__pictures__add">
@@ -177,23 +238,89 @@ const ListingSubmit = () => {
                 />
               <label >Τιμή</label>
             </div>
-            <div className="listingSubmit__field">
+            <div className="listingSubmit__field" ref={dropdownRef_payment}>
               <input
                 type="text"
                 name="payment"
+                readOnly
+                className='no-caret'
                 value={listingData.payment}
-                onChange={(e) => handleListingDataChange(e)}
+                onClick={() => set_dropdown_payment(true)}
                 />
+              { dropdown_payment && (
+                <div className="field__dropdown">
+                  <ul>
+                    {listing_payments.map((payment) => (
+                      <li
+                      key={payment}
+                      onClick={() => {
+                        setListingData({...listingData, payment: payment});
+                        set_dropdown_payment(false)
+                      }}
+                      >
+                        {payment}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <label >Πληρωμή</label>
             </div>
-            <div className="listingSubmit__field">
+            <div className="listingSubmit__field" ref={dropdownRef_location}>
               <input
                 type="text"
                 name="location"
+                onChange={(e) => handleSearchFormChange(e)}
+                onClick={() => set_dropdown_location(true)}
                 value={listingData.location}
-                onChange={(e) => handleListingDataChange(e)}
                 />
+              { dropdown_location && searchLocationResults.length>0 && (
+                <div className="field__dropdown">
+                  <ul>
+                    {searchLocationResults.map((result) => (
+                      <li
+                      key={result}
+                      onClick={() => {
+                        setListingData({ ...listingData, location: result });
+                        setSearchLocationResults([]);
+                        set_dropdown_location(false)
+                      }}
+                      >
+                        {result}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <label >Τοποθεσία</label>
+            </div>
+            <div className="listingSubmit__field" ref={dropdownRef_type}>
+              <input
+                type="text"
+                name="type"
+                readOnly
+                className='no-caret'
+                value={listingData.type}
+                onClick={() => set_dropdown_type(true)}
+                />
+              { dropdown_type && (
+                <div className="field__dropdown">
+                  <ul>
+                    {listing_types.map((type) => (
+                      <li
+                      key={type}
+                      onClick={() => {
+                        setListingData({...listingData, type: type});
+                        set_dropdown_type(false)
+                      }}
+                      >
+                        {type}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <label >Τύπος</label>
             </div>
             <div className="listingSubmit__field">
               <input
@@ -239,15 +366,6 @@ const ListingSubmit = () => {
                 onChange={(e) => handleListingDataChange(e)}
                 />
               <label >Όροφος</label>
-            </div>
-            <div className="listingSubmit__field">
-              <input
-                type="text"
-                name="type"
-                value={listingData.type}
-                onChange={(e) => handleListingDataChange(e)}
-                />
-              <label >Τύπος</label>
             </div>
           </section>
 
@@ -295,7 +413,7 @@ const ListingSubmit = () => {
           </section>
 
           <section className="listingSubmit__map">
-            <h2>Τοποθεσία</h2>
+            <h2>Χάρτης</h2>
             <div className="listingSubmit__map-coords">
               <label >Lng: </label>
               <input
@@ -488,18 +606,11 @@ const ListingSubmit = () => {
             </div>
           </section>
 
-          {/* 
-                  wifi: '',
-    heating: '',
-    cooling: '',
-    television: '',
-    parking: '',
-    elevator: '',
-
-    smoking: '',
-    pets: '',
-    parties: '',
-          */}
+          <div className='listingSubmit__submit'>
+            <button onClick={() => handleListingSubmit()}>
+              <p>Καταχώρηση</p>
+            </button>
+          </div>
 
         </form>
       </div>

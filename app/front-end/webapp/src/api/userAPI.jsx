@@ -22,6 +22,32 @@ export const createUser = async (data) => {
   }
 }
 
+export const getUser = async (username) => {
+
+  const endpoint = '/users/';
+
+  try {
+    const response = await fetch(`${API_URL}${endpoint}${username}`, {
+      method: 'GET',
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+    })
+    if (!response.ok)
+      throw new Error('Failed to get user.');
+    else
+      console.log('User received successfully!')
+      const userInfo = await response.json();
+      return userInfo
+  }
+  catch (error) {
+    console.error(error);
+  }
+  finally {
+    // console.log(response);
+  }
+}
+
 export const updateAvatar = async (user_name, profile_picture) => {
   try {
     const formData = new FormData()

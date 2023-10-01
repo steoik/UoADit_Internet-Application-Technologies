@@ -10,15 +10,9 @@ import Home from './pages/Home'
 import Listing from './pages/Listing'
 import Listings from './pages/Listings'
 import ListingSubmit from "./pages/ListingSubmit";
+import Profile from "./pages/Profile";
 import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
-
-
-// Remove on final push
-import UserList from './pages/UsersList'
-import User from './pages/User'
-//
-
 
 import AuthContextProvider from "./contexts/AuthContext";
 import { AuthContext } from "./contexts/AuthContext";
@@ -57,16 +51,12 @@ function Views() {
           element: <ListingSubmit />
         },
         {
+          path: "/profile/:username",
+          element: <Profile />
+        },
+        {
           path: "/admin",
           element: <>{authData.role == "admin" ? <Admin /> : <Navigate to={"/"} />}</>
-        },
-        {
-          path: "/user",
-          element: <UserList />
-        },
-        {
-          path: "/user/:un",
-          element: <User />
         },
         {
           path: "*",

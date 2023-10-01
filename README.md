@@ -39,97 +39,13 @@ How to run
     npm run dev                             // Run ReactJS app (in: app/front-end/webapp/)
 
 
-
-
-
 Problems faced & fixed 
 
-The SimpleJWT library works only on the primary User model. So instead of having a independent User model we had to extend the default User model and create an AbstractUser.
+  The SimpleJWT library works only on the primary User model. So instead of having a independent User model we had to extend the default User model and create an AbstractUser.
 
-Authentication State Persistence
-
-
-
+  Authentication State Persistence
 
 Resources Used
   Set-up : https://www.youtube.com/watch?v=tYKRAXIio28&t=11501s
   Custom User Model : https://www.youtube.com/watch?v=Ae7nc1EGv-A
   JWT : https://www.youtube.com/watch?v=xjMP0hspNLE&t=1s
-
-
-
-
-Χώρα            Ελλάδα
-Περιφέρεια      Αττικής
-Νομός           
-Δήμος
-
-
-listing{
-
-  General Info
-  
-    listing_id unique
-    Title string 50
-    price (integer, in euro) float
-    payment (month/night) string default month
-
-    Location string 50 default ''
-
-    street  string 50
-    street_number integer
-    postal_code integer
-    surface (in sq meters) integer
-    
-    floor (basement, ground, 1/2/3...) string
-      υπόγειο, ισόγειο, 1/2/3...
-    type (διαμέρισμα, μεζονέτα, μονοκατοικία) string
-    description textfield 500 
-
-    For month payment listings
-
-      minimum reservation period  integer
-      starting price  float
-      extra price per guest float
-      maximum guests  integer
-
-
-  Photos  array of 8 imagefields
-  Host CustomUser
-
-  Map
-
-    long  
-    lat
-
-
-  Space Info  integer
-
-    beds  
-    bedrooms
-    kitchens
-    bathrooms
-    living room
-
-  
-  Provisions (Παροχές)  boolean
-
-    Wifi
-    heating
-    cooling
-    television
-    parking
-    elevator
-
-  Rules boolean
-
-    smoking
-    pets
-    parties
-
-
-  Ratings
-
-    number of ratings integer
-    average rating  float
-}

@@ -49,3 +49,14 @@ export const translate_payment_GR_EN = (payment) => {
       return 'error';
   }
 };
+
+export const translate_role_EN_GR = (role) => {
+  if (role == 'tenant')
+    return 'Ενοικιαστής'
+  else if (role == 'host')
+    return 'Οικοδεσπότης'
+  else if (role == 'admin')
+    return 'Διαχειριστής'
+  else 
+    return 'error'
+}

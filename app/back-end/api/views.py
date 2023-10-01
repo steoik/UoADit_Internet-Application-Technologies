@@ -85,6 +85,18 @@ def avatar(request, USERNAME):
       return Response(None, status=204)
   # Delete the User profile picture
 
+@api_view(['GET'])
+def userDetail(request, USERNAME):
+  try:
+    user = CustomUser.objects.get(username=USERNAME)
+  except CustomUser.DoesNotExist:
+    pass
+  if not user:
+    user = get_object_or_404(CustomUser, pk=USERNAME)
+    
+  serializer = UserSerializer(user)
+  return Response(serializer.data)
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -106,13 +118,58 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['POST'])
 def listing(request):
-  # Create a new Listing
+  data = request.data
+  host_username = data.get('host', '')
+  host_instance = CustomUser.objects.get(username=host_username)
+
   if request.method == 'POST':
-    serializer = ListingSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'Listing created successfully!'})
-    return Response({'Failed to create Listing.'})
+    data = request.data
+    listing = Listing(
+      title=data.get('title', ''),
+      price=float(data.get('price', 0.0)),
+      payment=data.get('payment', 'month'),
+      location=data.get('location', ''),
+      street=data.get('street', ''),
+      street_number=int(data.get('street_number', 0)),
+      postal_code=int(data.get('postal_code', 0)),
+      surface=int(data.get('surface', 0)),
+      floor=data.get('floor', ''),
+      type=data.get('type', ''),
+      description=data.get('description', ''),
+
+      host=host_instance,
+      
+      minimum_reservation_period=int(data.get('minimum_reservation_period', 1)),
+      extra_price_per_guest=float(data.get('extra_price_per_guest', 0.0)),
+      maximum_guests=int(data.get('maximum_guests', 1)),
+      
+      lng=float(data.get('lng', 0.0)),
+      lat=float(data.get('lat', 0.0)),
+      
+      beds=int(data.get('beds', 0)),
+      bedrooms=int(data.get('bedrooms', 0)),
+      kitchens=int(data.get('kitchens', 0)),
+      bathrooms=int(data.get('bathrooms', 0)),
+      living_room=int(data.get('living_room', 0)),
+      
+      wifi = True if data.get('wifi', 'false') == 'true' else False,
+      heating = True if data.get('heating', 'false') == 'true' else False,
+      cooling = True if data.get('cooling', 'false') == 'true' else False,
+      television = True if data.get('television', 'false') == 'true' else False,
+      parking = True if data.get('parking', 'false') == 'true' else False,
+      elevator = True if data.get('elevator', 'false') == 'true' else False,
+
+      smoking = True if data.get('smoking', 'false') == 'true' else False,
+      pets = True if data.get('pets', 'false') == 'true' else False,
+      parties = True if data.get('parties', 'false') == 'true' else False,
+      
+      rating=float(data.get('rating', 0.0)),
+      reviews=int(data.get('reviews', 0)),
+    )
+    listing.save()
+    listing_id = listing.listing_id
+    serializer = ListingSerializer(listing)
+    return Response({'message': 'Listing created successfully!', 'listing_id': listing_id, 'data': serializer.data})
 
 class ListingFilter(django_filters.FilterSet):
     
@@ -161,82 +218,26 @@ class ListingDetailView(RetrieveAPIView):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# class ListingImageCreateView(generics.CreateAPIView):
-#     queryset = ListingImage.objects.all()
-#     serializer_class = ListingImageSerializer
-#     parser_classes = (FileUploadParser,)
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# def ListingImage(request, listing_id):
-#   # Get the Listing object
-#   listing = Listing.objects.get(pk=listing_id)
-#   image = request.FILES.get('image')
-#   primary_image = request.data.get('primary_image', False)
-#   if image:
-#     # Create a new ListingImage instance
-#     listing_image = ListingImage(listing=listing, image=image, primary_image=primary_image)
-#     listing_image.save()
-#     return Response({'message': 'Image uploaded successfully'}, status=status.HTTP_201_CREATED)
-#   else:
-#       return Response({'message': 'Image not provided'}, status=status.HTTP_400_BAD_REQUEST)
-  
-
-
-
-# class ListingImageListView(generics.ListAPIView):
-#   serializer_class = ListingImageSerializer
-
-#   def get_queryset(self):
-#     # Get the listing_id from the URL parameters
-#     listing_id = self.kwargs['listing_id']
-    
-#     # Retrieve all ListingImages associated with the given listing_id
-#     queryset = ListingImage.objects.filter(listing_id=listing_id)
-    
-#     return queryset
-
-# @api_view(['POST'])
-# def listing_image(request, listing_id):
-#   listing = get_object_or_404(Listing, listing_id=listing_id)
-
-#   if request.method == 'POST':
-#     data = request.data
-#     # Ensure that the 'listing' field in the data is set to the correct listing object
-#     data['listing'] = listing.id
-#     serializer = ListingImageSerializer(data=data)
-#     if serializer.is_valid():
-#       serializer.save()
-#       return Response({'Listing image created successfully!'})
-#     return Response(serializer.errors, status=400)
-
-
-
 class ListingImageCreateView(generics.CreateAPIView):
   def post(self, request, listing_id):
     try:
-      # Get the Listing object with the provided listing_id
       listing = Listing.objects.get(pk=listing_id)
     except Listing.DoesNotExist:
       return Response(
         {'detail': 'Listing not found'},
         status=status.HTTP_404_NOT_FOUND
       )
-    
-    serializer = ListingImageSerializer(data=request.data)
-    if serializer.is_valid():
-      serializer.save(listing=listing)
-      return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    data = request.data
+    print(data)
+    listing_image = ListingImage(
+      listing=listing,
+      image=data.get('image'),
+      primary_image=True if data.get('primary_image', '') == 'True' else False,
+    )
+    listing_image.save()
+    return Response({'Listing image has been created successfully!'})
   
+
 class ListingImageListView(generics.ListAPIView):
   def get(self, request, listing_id):
     try:

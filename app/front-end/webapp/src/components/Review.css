@@ -3,6 +3,7 @@
   height: 80px;
   object-fit: cover;
   border-radius: 50%;
+  background-color: var(--color-yellow);
 }
 .review_userInfo {
   display: flex;

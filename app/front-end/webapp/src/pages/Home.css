@@ -87,7 +87,9 @@
 .home__otherSection {
   /* width: 100%; */
   height: calc(100vh);
-  background-color: #5ac3b0;
+  /* background-color: #5ac3b0; */
+  margin: 50px;
+  border: 5px solid var(--color-yellow);;
 }
 
 .home__searchBucket button {

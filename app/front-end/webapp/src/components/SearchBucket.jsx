@@ -4,21 +4,11 @@ import './SearchBucket.css';
 
 const SearchBucket = ({ searchForm, setSearchForm }) => {
   
-  // const [searchForm, setSearchForm] = useState({
-  //   location: '',
-  //   type: '',
-  //   payment: '',
-  //   priceFrom: 0,
-  //   priceTo: 0,
-  //   surfaceFrom: 0,
-  //   surfaceTo: 0,
-  // });
-
   const listing_types = [
     'Διαμέρισμα',
     'Μονοκατοικία',
     'Στούντιο',
-    'Γκαρσονιέρα',
+    'Μεζονέτα',
   ]
   const listing_payments = [
     'Μήνας',
@@ -169,7 +159,7 @@ const SearchBucket = ({ searchForm, setSearchForm }) => {
               </div>
             )}
           </div>
-
+      
           <div className="search-bucket__field" id='type' ref={dropdownRef_payment}>
             <label >Πληρωμή</label>
             <input

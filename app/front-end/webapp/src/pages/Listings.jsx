@@ -93,7 +93,6 @@ const Listings = () => {
         primaryImageMap[listing.listing_id] = `${API_URL}${imageURL}`;
       }
       setListingPrimaryImages(primaryImageMap);
-      // console.log(primaryImageMap)
     } catch (error) {
       console.error('Failed to fetch listing primary images:', error);
     } finally {
@@ -108,6 +107,17 @@ const Listings = () => {
   useEffect(() => {
     fetchListingPrimaryImages();
   }, [listings])
+
+  const [orderDirection, setOrderDirection] = useState('ascending')
+  const orderListings = () => {
+    const sortedListings = [...listings];
+    if (orderDirection === 'ascending')
+      sortedListings.sort((a, b) => a.price - b.price);
+    else
+      sortedListings.sort((a, b) => b.price - a.price);
+    setListings(sortedListings);
+    setOrderDirection((previous) => previous === 'ascending' ? 'descending' : 'ascending')
+  };
   
   const [filtersModal, setFiltersModal] = useState(false)
 
@@ -134,7 +144,11 @@ const Listings = () => {
             </button>
           </div>
           <div className='filtersBtn__container'>
-            <button className='sortBtn__container' id='sortBtn'>
+            <button 
+              className='sortBtn__container' 
+              id='sortBtn'
+              onClick={() => orderListings()}
+              >
               <img src={SortIcon}></img>
               <p>Ταξινόμηση</p>
             </button>

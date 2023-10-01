@@ -12,9 +12,39 @@
 }
 .listingSubmit__form textarea {
   width: 100%;
-  font-size: 25px;
+  font-size: 20px;
   resize: none;
   padding: 10px;
+  border: 3px solid var(--color-yellow);
+}
+.listingSubmit__form textarea:focus {
+  background-color: white;
+  border-radius: 3px;
+  border: 3px solid var(--color-orange);
+  outline: none;
+}
+.listingSubmit__field {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.listingSubmit__field input{
+  height: 40px;
+  width: 200px;
+  font-size: 20px;
+  padding-left: 10px;
+  border: 3px solid var(--color-yellow);
+}
+.listingSubmit__field input:focus{
+  background-color: white;
+  border-radius: 3px;
+  border: 3px solid var(--color-orange);
+  outline: none;
+}
+.listingSubmit__field label{
+  padding-left: 10px;
+  font-size: 20px;
 }
 /* ~~~~~~~~~~~~~~~~~~~~ Pictures ~~~~~~~~~~~~~~~~ */
 .listingSubmit__pictures__wrapper {
@@ -49,22 +79,6 @@
   align-items: center;
   padding-left: 10px;
 }
-/* ~~~~~~~~~~~~~~~~~~~~ General ~~~~~~~~~~~~~~~~ */
-.listingSubmit__field {
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-}
-.listingSubmit__field input{
-  height: 30px;
-  font-size: 15px;
-  padding-left: 10px;
-}
-.listingSubmit__field label{
-  padding-left: 10px;
-  font-size: 20px;
-}
-
 /* ~~~~~~~~~~~~~~~~~~~~ Map ~~~~~~~~~~~~~ */
 .listingSubmit__map-wrapper {
   width: 100%;
@@ -73,20 +87,27 @@
   position: relative;
 }
 .listingSubmit__map-coords input{
-  height: 30px;
-  font-size: 15px;
+  height: 40px;
+  font-size: 20px;
   margin-right: 10px;
+  padding-left: 10px;
+  border: 3px solid var(--color-yellow);
+}
+.listingSubmit__map-coords input:focus{
+  background-color: white;
+  border-radius: 3px;
+  border: 3px solid var(--color-orange);
+  outline: none;
 }
 .listingSubmit__map-coords label{
   font-size: 20px;
 }
-
 /* ~~~~~~~~~~~~~~~~~~~~ Space ~~~~~~~~~~~~~ */
 .listingSubmit__space {
   display: flex;
   flex-direction: column;
 }
-
+/* ~~~~~~~~~~~~~~~~~~~~ Grid ~~~~~~~~~~~~~ */
 .listingSubmit__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -105,4 +126,50 @@
 }
 .listingSubmit__grid-field label{
   font-size: 20px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~ Submit ~~~~~~~~~~~~~ */
+.listingSubmit__submit {
+  width: 100%;
+  min-height: 100px;
+  margin-top: 25px;
+  padding: 15px 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.listingSubmit__submit button {
+  width: 180px;
+  height: 60px;
+  font-size: 25px;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: var(--color-orange);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.listingSubmit__submit button:hover {
+  background-color: var(--color-orange-bright);
+}
+/* ~~~~~~~~~~~~~~~~~~~~ Dropdowns ~~~~~~~~~~~~~ */
+.listingSubmit__field .field__dropdown {
+  top: 100%;
+  position: absolute;
+  width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  border: 3px solid var(--color-orange);
+  z-index: 1;
+}
+
+.listingSubmit__field input[type="checkbox"]:checked {
+  background-color: var(--color-orange);
 }
